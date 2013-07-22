@@ -9,15 +9,17 @@
 ** Date : 9 April 2010
 */
 
+
 function get_values($post, $files)
 {
+    include $_SERVER['DOCUMENT_ROOT']."/Tylecote_collection/globals.php";
     $db=db_connect();
     global $Type, $Description, $Material, $Site, $County, $Country, $Date_strati, $Date_typo, $Site_period, $Site_layer, $Museum, $Museum_nb, $Field_nb, $Catalogue_nb, $Weight, $Lenght, $Width, $Thickness, $Base_diameter, $Max_diameter, $Photo, $Drawing, $Card_scan_front, $Card_scan_back, $Comment;
     global $Sample_type, $Sample_nb, $Sample_material, $Sample_condition, $Date_sampled, $Object_part, $Section, $Collection, $Tylecote_notebook, $Drawer, $Date_repolished, $Location_new_drawer, $Location_new_code, $Photo, $Drawing, $Date_analysed, $Comment;
     global $Author, $Date, $Title, $Journal, $Volume, $Issue, $Book_title, $Editor, $City, $Publisher, $Oxf_location, $Comment;
-    global $ID_object, $ID_sample, $Object_part, $HV, $HB, $Report, $Date_metallo, $Analyst, $Comment;
+    global $ID_object, $ID_sample, $Object_part, $Technology, $Use_techno, $HV, $HB, $Report, $Date_metallo, $Analyst, $Comment;
     global $ID_object, $Technique, $Sampling_method, $Nb_runs, $Date_analysed, $Lab, $Object_condition, $Object_part, $Cu, $Sn, $Pb, $Zn, $Arsenic, $Sb, $Ag, $Ni, $Co, $Bi, $Fe, $Au, $C, $Si, $Mn, $P, $S, $Cr, $Ca, $O, $Cd, $Al, $Mg, $K, $Ti, $Se, $Cl, $Comment;
-    global $ID_metallography, $File, $Description, $Magnification, $Fig_nb, $ID_sample, $ID_publication;
+    global $ID_metallography, $File, $Description, $Magnification, $Fig_nb, $ID_sample, $ID_publication, $Cu_structure, $Fe_structure, $Porosity, $Corrosion, $Inclusions, $C_content;
     global $delete_Photo, $delete_Drawing, $delete_Card_scan_front, $delete_Card_scan_back, $delete_File;
    
     if($post['class']=="object")
@@ -34,7 +36,7 @@ function get_values($post, $files)
     }
     elseif($post['class']=="metallography")
     {
-            $fields_list="ID_object, ID_sample, Object_part, HV, HB, Report, Date_metallo, Analyst, Micrograph, Img_2, Img_3, Comment";
+            $fields_list="ID_object, ID_sample, Object_part, Technology, Use_techno, HV, HB, Report, Date_metallo, Analyst, Micrograph, Img_2, Img_3, Comment";
     }
     elseif($post['class']=="chemistry")
     {
@@ -51,7 +53,24 @@ function get_values($post, $files)
             if(isset($post["$field"]))      $$field=mysqli_real_escape_string($db, $post["$field"]);
             else    $$field="";
     }
-    //print_r($files);
+    if($post['class']=="micrograph")
+    {
+        foreach($micrograph_features as $header=>$array_features)
+        {
+            $$header="";
+            if(isset($post["$header"]))
+            {
+                foreach($post["$header"] as $feature)
+                {
+                    if($feature!="")  //necessary because if the percentage of C is left black, C_content will have an empty value
+                    {
+                        $$header=$$header.mysqli_real_escape_string($db, $feature)."; ";
+                    }
+                }
+            }
+        }
+    }
+    
     if(isset($files['Photo']['name']))      $Photo=$files['Photo']['name'];
     else      $Photo="";
     if(isset($files['Drawing']['name']))      $Drawing=$files['Drawing']['name'];

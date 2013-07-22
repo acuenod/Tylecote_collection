@@ -15,6 +15,7 @@
             include 'functions/photo_upload.php';
             include '../functions/db_connect.php';
             
+            print_r($_POST);
             $class=$_POST['class'];
 
             photo_upload($_FILES, $class);
@@ -35,7 +36,7 @@
             }
             elseif($class=="metallography")
             {
-                $fields_list="ID_object, Object_part, HV, HB, Report, Date_metallo, Analyst, Comment";
+                $fields_list="ID_object, Object_part, Technology, HV, HB, Report, Date_metallo, Analyst, Comment";
             }
             elseif($class=="chemistry")
             {
@@ -43,7 +44,7 @@
             }
             elseif ($class=="micrograph")
             {
-                $fields_list="ID_metallography, File, Description, Magnification, Fig_nb, ID_sample, ID_publication";
+                $fields_list="ID_metallography, File, Description, Magnification, Fig_nb, ID_sample, ID_publication, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content";
             }
             $fields_array=explode(", ", $fields_list);
             $values_list="";
@@ -60,7 +61,7 @@
             db_query($db, $sql);
             
             //Inserts the relationship between sample and object in the sample_object table if there is one
-            $id = mysql_insert_id($db);
+            $id = mysqli_insert_id($db);
             if($class=='object' && isset($_POST['ID_sample']))
             {
                 $sql = "INSERT INTO sample_object (ID_sample, ID_object) VALUES (".$_POST['ID_sample'].", ".$id.")";
@@ -71,7 +72,16 @@
                 $sql = "INSERT INTO sample_object (ID_sample, ID_object) VALUES (".$id.", ".$_POST['ID_object'].")";
                 db_query($db, $sql);
             }
-            echo 'Object added to database<br>';
+            
+            //Inserts the ID of a chosen metallography for the summary of the technology into the object table
+            if($class == 'metallography' && $Use_techno=="yes")
+            {
+                $sql="UPDATE object SET ID_metallo_techno=$id WHERE ID=".$ID_object;
+                db_query($db, $sql);
+            }
+            
+            //Display success
+            echo 'Item added to database<br>';
             
             db_close($db);
             

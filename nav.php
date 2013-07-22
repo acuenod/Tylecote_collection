@@ -4,7 +4,7 @@
      if(isset($_SESSION["access"]) && $_SESSION["access"]>0)
     {
     echo'
-    <li onmouseover="this.className=\'navbar_highlighted\' " onmouseout="this.className=\'navbar_normal\' " onclick="document.location.href =\'/Tylecote_collection/home.php\'" class="navbar_normal" ><a href="/Tylecote_collection/home.php">Home</a>
+    <li onmouseover="this.className=\'navbar_highlighted\' " onmouseout="this.className=\'navbar_normal\' " onclick="document.location.href =\'/Tylecote_collection/index.php\'" class="navbar_normal" ><a href="/Tylecote_collection/index.php">Home</a>
     <li onmouseover="this.className=\'navbar_highlighted\' " onmouseout="this.className=\'navbar_normal\' " onclick="document.location.href =\'/Tylecote_collection/advanced_search.php\' "; class="navbar_normal"><a href="/Tylecote_collection/advanced_search.php">Advanced Search</a>
     <li onmouseover="this.className=\'navbar_highlighted\' " onmouseout="this.className=\'navbar_normal\' " onclick="document.location.href =\'/Tylecote_collection/browse_choice.php\' "; class="navbar_normal"><a href="/Tylecote_collection/browse_choice.php">Browse</a>
       <ul class="navbar">

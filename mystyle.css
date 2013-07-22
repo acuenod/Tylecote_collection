@@ -347,6 +347,9 @@ ul.navbar li:hover > ul {
         border:2px solid #011e4a;
         overflow:hidden;
 }
+#grey_text{
+        color:grey;
+}
 
 #footer {
         color: #FFFFFF;

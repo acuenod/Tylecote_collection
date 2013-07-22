@@ -130,7 +130,7 @@
             {
                 $previous='';
                 $next='';
-                $back="javascript:history.go(-1)";
+                $back="<a href= 'javascript:history.go(-1)'>< Back </a>";
             }
             
             /*If we come from add or modify

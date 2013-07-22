@@ -18,7 +18,6 @@
 
             $id=$_POST['id'];
             $class=$_POST['class'];
-
             photo_upload($_FILES, $class);
             get_values($_POST, $_FILES);
 
@@ -37,7 +36,7 @@
             }
             elseif ($class=="metallography")
             {
-                $fields_list="Object_part, HV, HB, Report, Date_metallo, Analyst, Comment";
+                $fields_list="Object_part, Technology, HV, HB, Report, Date_metallo, Analyst, Comment";
             }
             elseif($class=="chemistry")
             {
@@ -45,7 +44,7 @@
             }
             elseif ($class=="micrograph")
             {
-                $fields_list="File, Description, Magnification, Fig_nb, ID_sample, ID_publication";
+                $fields_list="File, Description, Magnification, Fig_nb, ID_sample, ID_publication, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content";
             }
             $fields_array=explode(", ", $fields_list);
 
@@ -56,12 +55,12 @@
             foreach($fields_array as $field)
             {
                 //If not image fields and not the last field
-                if($field!="ID_publication" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Comment")
+                if($field!="C_content" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Comment")
                 {
                     $sql=$sql.$field."='".$$field."', ";
                 }
                 //If last fields of the list  no comma afterwards
-                elseif($field=="Comment" || $field=="ID_publication")
+                elseif($field=="Comment" || $field=="C_content")
                 {
                     $sql=$sql.$field."='".$$field."' ";
                 }
@@ -71,6 +70,13 @@
             //Update the database
             //At the moment, no checks are performed on the data entered
             db_query($db, $sql);
+            
+            //Updates the ID of a chosen metallography for the summary of the technology into the object table
+            if($class=='metallography' && $Use_techno=="Yes")
+            {
+                $sql="UPDATE object SET ID_metallo_techno=$id WHERE ID=".$ID_object;
+                db_query($db, $sql);
+            }
 
             //Definition of the image and files fields
             $array_illustrations=array("Photo", "Drawing", "Card_scan_front", "Card_scan_back", "File");

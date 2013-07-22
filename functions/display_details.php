@@ -1,8 +1,11 @@
 
 <?php
 include 'db_connect.php';
+include $_SERVER['DOCUMENT_ROOT']."/Tylecote_collection/globals.php";
+
 function display_details($id, $class)
 {
+    global $micrograph_features;
     //Definition of the fields displayed for each class of items
     $fields_array=array();
     if ($class=="object")
@@ -19,7 +22,7 @@ function display_details($id, $class)
     }
     if ($class=="metallography")
     {
-        $fields_list="ID, Object_part, HV, HB, Report, Date_metallo, Analyst, Comment, Date_added";           
+        $fields_list="ID, Object_part, Technology, HV, HB, Report, Date_metallo, Analyst, Comment, Date_added";           
     }
     if ($class=="chemistry")
     {
@@ -52,12 +55,12 @@ function display_details($id, $class)
         if ($class=="metallography")
         {
             //Fetches all the info for each micrograph
-            $sql = "SELECT micrograph.ID, File, Description, Magnification, Fig_nb, ID_sample, sample.Photo, ID_publication, Author, Date FROM micrograph
+            $sql = "SELECT micrograph.ID, File, Description, Magnification, Fig_nb, ID_sample, sample.Photo, ID_publication, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content, Author, Date FROM micrograph
                  LEFT JOIN sample ON sample.ID=micrograph.ID_sample
                  LEFT JOIN publication ON publication.ID=micrograph.ID_publication
                  WHERE ID_metallography=".$data['ID']." AND micrograph.Is_deleted=0";
-            $result = db_query($db, $sql);
-            while($data2 = db_fetch_assoc($result))
+            $result2 = db_query($db, $sql);
+            while($data2 = db_fetch_assoc($result2))
             {
                 if(isset($data2['File']) && $data2['File']!='')
                 {
@@ -72,9 +75,18 @@ function display_details($id, $class)
                         if(isset($data2['Photo']) && $data2['Photo']!='')
                         {
                             $sample_image_size=getimagesize("upload/sample/Photo/".$data2['Photo']);
-                            echo"<td onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)' onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data2['ID_sample']."&class=sample');><IMG SRC='upload/sample/Photo/".$data2['Photo']."' ALT='No image' TITLE='Image'".($sample_image_size[0]>$sample_image_size[1]?"width='60'":"height='60'")."></td></tr>";
+                            echo"<td onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)' onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data2['ID_sample']."&class=sample&action=link');><IMG SRC='upload/sample/Photo/".$data2['Photo']."' ALT='No image' TITLE='Image'".($sample_image_size[0]>$sample_image_size[1]?"width='60'":"height='60'")."></td></tr>";
                         }
-                        else echo"<td></td></tr>";
+                        echo"</tr>";
+                        echo"</table><br>";
+                        echo"<table class='micrograph'>";
+                        foreach ($micrograph_features as $key=>$array)
+                        {
+                            if(!empty($data2[$key]))
+                            {
+                                echo "<tr><th>".$key."</th><td>".$data2[$key]."</td></tr>";
+                            }
+                        }
                         echo"</table>";
                     }
                     

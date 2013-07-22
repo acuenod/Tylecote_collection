@@ -14,6 +14,7 @@
             <?php
             include '../functions/db_connect.php'; 
             include '../functions/display_linked.php'; 
+            include '../globals.php';
             ?>
 
             <h1>Insert a new micrograph</h1>
@@ -23,8 +24,7 @@
                 <input type="file" name="File" /></br>
                 </br>
                 Description: </br>
-                <textarea name="Description" rows="5" cols="45">
-                </textarea> </br>
+                <textarea name="Description" rows="5" cols="45"></textarea> </br>
                 </br>
                 Magnification: <input type="text" name="Magnification"/> </br>
                 </br>
@@ -38,6 +38,35 @@
                     echo"<input type='hidden' name='ID_metallography' value=".$id_metallo." />";
                     display_linked($id, "object", "radio");
                 ?>
+                
+                <h3>Which of the following features are present?</h3>
+                <table>
+                    <tr>
+                        <?php
+                        foreach ($micrograph_features as $header=>$array_features)
+                        {
+                            echo'<th>'.$header.'</th>';
+                        }
+                        ?>
+                    </tr>
+                    <tr>
+                        <?php
+                        foreach ($micrograph_features as $header=>$array_features)
+                        {
+                            echo'<td>';
+                            foreach ($array_features as $feature)
+                            {
+                                if($feature != 'Percentage')
+                                {
+                                    echo"<input type='checkbox' name='".$header."[]' value='".$feature."'>".$feature."<br>";
+                                }
+                                else echo "C percentage<input type='text' name='C_content[]'";
+                            }
+                            echo'</td>';
+                        }
+                        ?>
+                    </tr>
+                </table>
 
                 <input type="hidden" name="class" value="micrograph" />
                 <input type="submit" value="Add micrograph" />

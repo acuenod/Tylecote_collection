@@ -16,6 +16,8 @@
             <?php
             include '../functions/db_connect.php';
             include '../functions/display_linked.php';
+            include '../globals.php';
+            global $micrograph_features;
             
             $id=$_GET['id'];
             $class=$_GET['class'];
@@ -36,7 +38,7 @@
             }
             elseif ($class=="metallography")
             {
-                $fields_list="ID_object, Object_part, HV, HB, Report, Date_metallo, Analyst, Comment";
+                $fields_list="ID, ID_object, Object_part, Technology, HV, HB, Report, Date_metallo, Analyst, Comment";
             }
             elseif ($class=="chemistry")
             {
@@ -44,7 +46,7 @@
             }
             elseif ($class=="micrograph")
             {
-                $fields_list="File, Description, Magnification, Fig_nb, ID_sample, ID_publication, ID_object";
+                $fields_list="File, Description, Magnification, Fig_nb, ID_sample, ID_publication, ID_object, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content";
             }
             $fields_array=explode(", ", $fields_list);
             
@@ -68,7 +70,7 @@
                 foreach($fields_array as $field)
                 {
                     //Display of normal text fields
-                    if($field!="ID_object" && $field!="ID_sample" && $field!="ID_publication" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Description" && $field!="Comment" && $field!="Report")
+                    if($field!="ID" && $field!="ID_object" && $field!="ID_sample" && $field!="ID_publication" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Description" && $field!="Comment" && $field!="Report" && $field!="Technology" && !in_array($field, array_keys($micrograph_features)))
                     {
                         echo"<br>".$field.": <input type='text' name=".$field." value='".$data[$field]."'><br>";
                     }
@@ -78,11 +80,27 @@
                         echo"<br>Upload a new ".$field.": <input type='file' name='".$field."'/> or <input type='checkbox' name='delete_".$field."' id='delete_".$field."' /> <label for='delete_".$field."'>Delete previous ".$field."</label><br />";
                     }
                     //Display of text areas
-                    elseif($field=="Description" || $field=="Comment" || $field=="Report")
+                    elseif($field=="Description" || $field=="Comment" || $field=="Report" || $field=="Technology")
                     {
                         echo"<br>".$field.":<br> <textarea name='".$field."' rows='5' cols='45'>".$data["$field"]."</textarea> <br />";
                     }
                 }
+                
+                //For metallographies, we need to check if this metallography is the one selected for the description of the object.
+                //If so the check-box will appear checked
+                if($class=="metallography")
+                {
+                    $sql="SELECT ID_metallo_techno FROM object WHERE ID=".$data['ID_object']." AND Is_deleted=0";
+                    $result = db_query($db, $sql);
+                    $data2 = db_fetch_assoc($result);
+                    if ($data2['ID_metallo_techno']==$data['ID'])
+                    {
+                        $box_status="checked='checked'";
+                    }
+                    else $box_status="";
+                    echo"<input type=checkbox name='Use_techno' value='Yes' ".$box_status."/> Use this summary for the description of the object?</br>";
+                }
+                
                 db_close($db);
                 
                 //Also passes ID_object in a hidden field !!what for?!!
@@ -92,9 +110,42 @@
                 }
                 
                 //For micrographs, a choice of the the publications and samples linked to the objects are available to be linked to the micrograph
+                //And a form is available for a description of the features seen in the micrograph
                 if($class=="micrograph")
                 {
                     display_linked($data['ID_object'], "object", "radio");
+                    echo"<h3>Which of the following features are present?</h3>";
+                    echo"<table><tr>";
+                    foreach ($micrograph_features as $header=>$array_features)
+                    {
+                        echo'<th>'.$header.'</th>';
+                    }
+                    echo"</tr><tr>";
+                    foreach ($micrograph_features as $header=>$array_features)
+                    {
+                        echo'<td>';
+                        foreach ($array_features as $feature)
+                        {
+                            
+                            if(strpos($data[$header], $feature)!==false)
+                            {   
+                                $box_status="checked='checked'";
+                            }
+                            else $box_status="";
+                            if($feature != 'Percentage')
+                            {
+                                echo"<input type='checkbox' name='".$header."[]' value='".$feature."' ".$box_status.">".$feature."<br>";
+                            }
+                            else 
+                            {
+                                $array_C_content=explode(";", $data['C_content']);
+                                array_pop($array_C_content);
+                                echo "C percentage<input type='text' name='C_content[]' value='".end($array_C_content)."'";
+                            }
+                        }
+                        echo'</td>';
+                    }
+                    echo"</tr></table>";
                 }
 
                 ?>

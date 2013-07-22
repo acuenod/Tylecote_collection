@@ -2,16 +2,12 @@
 <?php
 //Database functions
 
-// To be changed when changing db name, login and password
-/*function db_connect()
-{
-	$db = mysql_connect('127.0.0.1', 'root', '')or die('Erreur de connexion '.mysql_error());
-	mysql_select_db('tylecote_data',$db)  or die('Erreur de selection '.mysql_error());
-}*/
+
 
 function db_connect()
 {
-    $db = mysqli_connect('127.0.0.1', 'root', '', 'tylecote_data');
+    $config = parse_ini_file($_SERVER['DOCUMENT_ROOT']."/Tylecote_collection/config.ini");
+    $db = mysqli_connect($config['db_host'], $config['db_username'], $config['db_password'], $config['db_name']);
     //Check connection
     if (mysqli_connect_errno())
     {
