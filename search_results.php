@@ -20,7 +20,7 @@
              * For each one of the entered terms it finds the preferred term (PT) if there is one, 
              * it then finds the narrower terms (NT) for both the original string and the PT and then the NTs of the NTs, etc. until we reach the leaves of the tree
              * it then finds the related terms (RT) for both the original search and its PT
-             * finally, it searches for all of these terms (the original string, the PT, the NTs and the RTs) matching strings in the some of the fields (defined in $filed_list) of the object, sample and publication tables
+             * finally, it searches for all of these terms (the original string, the PT, the NTs and the RTs) matching strings in the some of the fields (defined in $filed_list) of the object, sample, publication and micrograph tables
              */
 
             $db=db_connect();
@@ -162,7 +162,7 @@
             }
 
             //The search is performed within objects, samples and publications
-            $array_classes=array('object', 'sample', 'publication');
+            $array_classes=array('object', 'sample', 'publication', 'micrograph');
             
             //Definition of the info to be displayed (= the fields that are searched) for each of these 3 classes of items
             foreach($array_classes as $class)
@@ -180,6 +180,10 @@
                 {
                     $fields_list="Author, Date, Title, Publisher, City, Journal, Volume, Issue, Pages, Editor, Book_title, Oxf_location, Comment";
                 }
+                elseif ($class =="micrograph")
+                {
+                    $fields_list="ID_metallography, File, Description, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content";
+                }
                 $fields_array=explode(", ", $fields_list);
                 $detailed_fields_array=array(); //names of the fields in the table.field format
                 foreach ($fields_array as $field)
@@ -192,6 +196,12 @@
                     $fields_array[]="Sample_nb";
                     $detailed_fields_array[]="sample.Sample_nb";
                 }*/
+                if ($class == 'micrograph')
+                {
+                    $fields_list=$fields_list.", ID_object";
+                    $fields_array[]="ID_object";
+                    $detailed_fields_array[]="metallography.ID_object";
+                }
                 $detailed_fields_list=implode(", ", $detailed_fields_array);
 
                 //Definition of the WHERE clause of the final SQL request
@@ -224,6 +234,10 @@
                 else*/
                 
                 $table=$class;
+                if($class=="micrograph")
+                {
+                    $table=$table." JOIN metallography on micrograph.ID_metallography=metallography.ID";
+                }
 
                 //Displays the number items found
                 $sql="SELECT count(*) FROM ".$table." WHERE ".$class.".Is_deleted=0 AND (".$clause_final.")";

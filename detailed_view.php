@@ -42,20 +42,27 @@
              * in the order befined by the user by clicking on the column headers
              * The back button goes back to the search and browse results
              */
+            
+            if(isset($_GET['interest']))
+            {
+                $class_nav=$_GET['interest'];
+            }
+            else $class_nav=$class;
+            
             if($action!="link" && $action!="add" && $action!="modify")
             {
                 //Definition of the previous and next id within a search result
-                if(isset($_SESSION['search_results'][$class]))
+                if(isset($_SESSION['search_results'][$class_nav]))
                 {
-                    foreach($_SESSION['search_results'][$class] as $key => $id_value)
+                    foreach($_SESSION['search_results'][$class_nav] as $key => $id_value)
                     {
                         if ($id_value==$id)
                         {
-                            if(isset($_SESSION['search_results'][$class][$key-1]))
-                                $previous_id=$_SESSION['search_results'][$class][$key-1];
+                            if(isset($_SESSION['search_results'][$class_nav][$key-1]))
+                                $previous_id=$_SESSION['search_results'][$class_nav][$key-1];
                             else $previous_id="start";
-                            if(isset($_SESSION['search_results'][$class][$key+1]))
-                                $next_id=$_SESSION['search_results'][$class][$key+1];
+                            if(isset($_SESSION['search_results'][$class_nav][$key+1]))
+                                $next_id=$_SESSION['search_results'][$class_nav][$key+1];
                             else $next_id="end";
                         }
                     }
@@ -103,6 +110,12 @@
                     $previous=$previous."&search_text=".$_GET['search_text'];
                     $next=$next."&search_text=".$_GET['search_text'];
                     $back=$back."&search_text=".$_GET['search_text'];
+                }
+                if(isset($_GET['interest']))
+                {
+                    $previous=$previous."&interest=".$_GET['interest'];
+                    $next=$next."&interest=".$_GET['interest'];
+                    $back=$back."&interest=".$_GET['interest'];
                 }
                 
                 //End of the html for the buttons

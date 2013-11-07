@@ -52,7 +52,15 @@ else
             }
             ?>
         </div>
-        Tylecote Coghlan collection of metallurgical samples
+        <div id="headerLogo">
+            <img src="<?php echo$path?>images/2231_ox_brand1_rev.gif" alt="oxford logo">
+        </div>
+        <div id="headerTitle">
+            Archive collection of metallurgical samples
+        </div>
+        <div id="headerSubtitle">
+            Rlaha - University of Oxford
+        </div>
     </div>
 </div>
 <div id="menu">

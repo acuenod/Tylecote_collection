@@ -31,9 +31,45 @@ body {
 	height:100%;
 	margin:0px auto 0;
         padding: 15px;
-	color: white;
-	font-size:30px;
+        color: white;
         box-shadow: 25px 0px 25px -25px black, -25px 0px 25px -25px black;
+}
+#headerLogo{
+        float:left;
+	height:115px;
+}
+#headerTitle{
+        float:left;
+	height:85px;
+        width:700px;
+        padding:15px;
+	font-size:32px;
+        font-family: Geneva,Arial,Helvetica,sans-serif;
+        font-weight: lighter;
+        font-variant: small-caps;
+        text-align:left;
+}
+#headerTitle{
+        float:left;
+	height:40px;
+        width:700px;
+        padding:35px 15px 0 15px;
+	font-size:32px;
+        font-family: Geneva,Arial,Helvetica,sans-serif;
+        font-weight: lighter;
+        font-variant: small-caps;
+        text-align:left;
+}
+#headerSubtitle{
+        float:left;
+	height:30px;
+        width:700px;
+        padding:0 15px 10px 15px;
+	font-size:20px;
+        font-family: Geneva,Arial,Helvetica,sans-serif;
+        font-weight: lighter;
+        font-variant: small-caps;
+        text-align:left;
 }
 #headerTop{
         font-size:12px;
@@ -282,6 +318,14 @@ ul.navbar li:hover > ul {
         margin-top: 1.7em;
         padding-top: 0em;
         overflow:scroll;
+	}
+        
+#leftContent {
+        float:left;
+	width:55%;
+        padding: 15px;
+        margin-top: 1.7em;
+        padding-top: 0em;
 	}
 
 #centre {

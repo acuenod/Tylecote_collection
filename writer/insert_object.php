@@ -17,11 +17,10 @@
 
 
             <form method="post" action="add.php" enctype="multipart/form-data" class="form">
-                Object type: <input type="text" name="Type"> </br>
+                Object type:<input type="text" name="Type"></br>
                 </br>
-                Description: </br>
-                <textarea name="Description" rows="5" cols="45">
-                </textarea> </br>
+                Description:</br>
+                <textarea name="Description" rows="5" cols="45"></textarea></br>
                 </br>
                 Material: <input type="text" name="Material"> </br>
                 </br>
@@ -62,29 +61,28 @@
 
                 <h3> Illustrations </h3></br>
                 Upload a photo:
-                <input type="file" name="Photo" /></br>
+                <input type="file" name="Photo"></br>
                 </br>
                 Upload a drawing:
-                <input type="file" name="Drawing" /></br>
+                <input type="file" name="Drawing"></br>
                 </br>
                 Upload an index card (front):
-                <input type="file" name="Card_scan_front" /></br>
+                <input type="file" name="Card_scan_front"></br>
                 </br>
                 Upload an index card (back):
-                <input type="file" name="Card_scan_back" /></br>
+                <input type="file" name="Card_scan_back"></br>
                 </br>
 
                 Further description and comments: </br>
-                <textarea name="Comment" rows="5" cols="45">
-                </textarea> </br>
+                <textarea name="Comment" rows="5" cols="45"></textarea> </br>
                 </br>
-                <input type="hidden" name="class" value="object" />';
+                <input type="hidden" name="class" value="object">
 
                 <?php
                     if(isset($_GET['id_sample']))
                     {
                         $ID_sample=$_GET['id_sample'];
-                        echo'<input type="hidden" name="ID_sample" value='.$ID_sample.' />';
+                        echo'<input type="hidden" name="ID_sample" value='.$ID_sample.'>';
                     }
                 ?>
                 <input type="submit" value="Add Object">

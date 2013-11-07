@@ -32,7 +32,7 @@
             }
             elseif($class=="publication")
             {
-                $fields_list="Author, Date, Title, Journal, Volume, Issue, Book_title, Editor, City, Publisher, Oxf_location, Comment";
+                $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Comment";
             }
             elseif ($class=="metallography")
             {

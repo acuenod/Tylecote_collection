@@ -13,7 +13,6 @@
 
 function photo_upload($files, $class)
 {
-    //print_r($files);
     foreach($files as $key=>$array)
     {
             if ($files[$key]['error'] == 0)

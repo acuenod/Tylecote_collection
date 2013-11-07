@@ -24,27 +24,6 @@
     }
 
     db_close($db);
+    header("location:index.php");
+    exit;
 ?>
-
-<html>
-<head>
-<title>Tylecote collection</title>
-<link rel="stylesheet" href="mystyle.css">
-</head>
-
-
-<body>
-    <div id="content">
-	<?php include 'header.php'; ?>
-	<div id="wrapper">
-            <?php
-            if(isset($_SESSION) && !empty($_SESSION))
-            {
-                echo "You have successfully signed in.";
-            }
-            ?> 
-	</div>
-    </div>
-    <?php include 'footer.php'; ?>
-</body>
-</html> 

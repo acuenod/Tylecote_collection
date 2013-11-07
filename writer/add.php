@@ -15,7 +15,7 @@
             include 'functions/photo_upload.php';
             include '../functions/db_connect.php';
             
-            print_r($_POST);
+            //print_r($_POST);
             $class=$_POST['class'];
 
             photo_upload($_FILES, $class);
@@ -32,7 +32,7 @@
             }
             elseif($class=="publication")
             {
-                $fields_list="Author, Date, Title, Journal, Volume, Issue, Book_title, Editor, City, Publisher, Oxf_location, Comment";
+                $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Comment";
             }
             elseif($class=="metallography")
             {

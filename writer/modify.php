@@ -34,7 +34,7 @@
             }
             elseif ($class=="publication")
             {
-                $fields_list="Author, Date, Title, Journal, Volume, Issue, Book_title, Editor, City, Publisher, Oxf_location, Comment";
+                $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Comment";
             }
             elseif ($class=="metallography")
             {
@@ -62,7 +62,7 @@
             $sql = "SELECT ". $fields_list." FROM ".$class." ".$join." WHERE ".$class.".ID=".$id;
             $result = db_query($db, $sql);
             $data = db_fetch_assoc($result);
-            
+
             //Display the form
             echo"<form method='post' action='modify_db.php' enctype='multipart/form-data' class='form'>";
                 echo"<input type='hidden' name='id' value=".$id." />";
@@ -72,17 +72,17 @@
                     //Display of normal text fields
                     if($field!="ID" && $field!="ID_object" && $field!="ID_sample" && $field!="ID_publication" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Description" && $field!="Comment" && $field!="Report" && $field!="Technology" && !in_array($field, array_keys($micrograph_features)))
                     {
-                        echo"<br>".$field.": <input type='text' name=".$field." value='".$data[$field]."'><br>";
+                        echo'<br>'.$field.': <input type="text" name='.$field.' value="'.$data[$field].'"><br>';
                     }
                     //Display of images
                     elseif($field=="Photo" || $field=="Drawing" || $field=="Card_scan_front" || $field=="Card_scan_back" || $field=="Micrograph" || $field=="File")
                     {
-                        echo"<br>Upload a new ".$field.": <input type='file' name='".$field."'/> or <input type='checkbox' name='delete_".$field."' id='delete_".$field."' /> <label for='delete_".$field."'>Delete previous ".$field."</label><br />";
+                        echo'<br>Upload a new '.$field.': <input type="file" name="'.$field.'"/> or <input type="checkbox" name="delete_'.$field.'" id="delete_'.$field.'" /> <label for="delete_'.$field.'">Delete previous '.$field.'</label><br />';
                     }
                     //Display of text areas
                     elseif($field=="Description" || $field=="Comment" || $field=="Report" || $field=="Technology")
                     {
-                        echo"<br>".$field.":<br> <textarea name='".$field."' rows='5' cols='45'>".$data["$field"]."</textarea> <br />";
+                        echo'<br>'.$field.': <textarea name="'.$field.'" rows="5" cols="45">'.$data[$field].'</textarea> <br />';
                     }
                 }
                 

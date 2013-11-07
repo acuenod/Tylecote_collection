@@ -50,7 +50,14 @@ function display_table($db, $sql, $fields_array, $class, $form, $action, $page, 
             $result = db_query($db, $sql2);
             while($data= db_fetch_assoc($result))
             {
-                $_SESSION['search_results'][$class][]=$data['ID'];
+                if($class!='micrograph')
+                {
+                    $_SESSION['search_results'][$class][]=$data['ID'];
+                }
+                else
+                {
+                    $_SESSION['search_results'][$class][]=$data['ID_object'];
+                }
             }
         }
         if(isset($_GET['order']))
@@ -60,7 +67,7 @@ function display_table($db, $sql, $fields_array, $class, $form, $action, $page, 
         }
         else    $order="ASC";
         
-        //Displays the headers of the table differently depending on the class
+        //Displays the headers of the table differently depending on the action we come from
         if($action=="browse")
         {
             echo"<table border=1 cellspacing=0 cellpadding=3 class='normal'>";
@@ -76,24 +83,24 @@ function display_table($db, $sql, $fields_array, $class, $form, $action, $page, 
 	echo "<tr>";
 	if($form=="check" || $form=="radio")
 	{
-		echo"<th></th>";
+            echo"<th></th>";
 	}
 	foreach ($fields_array as $key=>$field)
 	{
-		if($field!="Photo" && $field!="Drawing")
-		{
-                        if($action=="browse")
-                        {
-                            if($class=="sample")
-                                echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)' onclick=DoNav('".$filename."?sort_column=".$field."&order=".$order."&class=".$class."&collection=".$_GET['collection']."&drawer=".$_GET['drawer']."');>".$field."</th>";
-                            else
-                                echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)' onclick=DoNav('".$filename."?sort_column=".$field."&order=".$order."&class=".$class."');>".$field."</th>";
-                        }
-                        else
-                        {   
-                            echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)'>".$field."</th>";
-                        }
-		}
+            if($field!="Photo" && $field!="Drawing" && $field!="File" && $field!="ID_metallography" && $field!="ID_object" && $field!="Description")
+            {
+                if($action=="browse")
+                {
+                    if($class=="sample")
+                        echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)' onclick=DoNav('".$filename."?sort_column=".$field."&order=".$order."&class=".$class."&collection=".$_GET['collection']."&drawer=".$_GET['drawer']."');>".$field."</th>";
+                    else
+                        echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)' onclick=DoNav('".$filename."?sort_column=".$field."&order=".$order."&class=".$class."');>".$field."</th>";
+                }
+                else
+                {   
+                    echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)'>".$field."</th>";
+                }
+            }
 	}
 	if($class!="publication" && $class!="thesaurus_term")
 	{
@@ -105,83 +112,97 @@ function display_table($db, $sql, $fields_array, $class, $form, $action, $page, 
         $result = db_query($db, $sql);
 	while($data= db_fetch_assoc($result))
 	{
-                if(isset($data["Photo"]) && $data["Photo"]!='')
-		{
-                        $img=$data["Photo"];
-                        $img_folder="Photo";
-			$img_size=getimagesize($path."upload/".$class."/Photo/".$data["Photo"]);
-		}
-                elseif(isset($data["Drawing"]) && $data["Drawing"]!='')
-		{
-                        $img=$data["Drawing"];
-                        $img_folder="Drawing";
-			$img_size=getimagesize($path."upload/".$class."/Drawing/".$data["Drawing"]);
-		}
-		else
-		{
-                        $img="";
-			$img_size=array(0,0);
-		}
-                
-		echo "<tr onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)' class='normal' >";
-		
-		if($form=="check")
-		{
-                    echo"<th><input type='checkbox' name='ID_".$class."[]' value=".$data['ID']."></th>";
-		}
-                elseif($form=="radio")
-		{
-                    echo"<th><input type='radio' name='ID_".$class."' value=".$data['ID']."></th>";
-		}
-                
-                //Definition of the URL to go to when a cell is clicked, with all of the information on where we come from in GET
+            //Deals with the image files
+            if(isset($data["Photo"]) && $data["Photo"]!='')
+            {
+                $img=$data["Photo"];
+                $img_folder="Photo";
+                $img_size=getimagesize($path."upload/".$class."/Photo/".$data["Photo"]);
+            }
+            elseif(isset($data["Drawing"]) && $data["Drawing"]!='')
+            {
+                $img=$data["Drawing"];
+                $img_folder="Drawing";
+                $img_size=getimagesize($path."upload/".$class."/Drawing/".$data["Drawing"]);
+            }
+            elseif(isset($data["File"]) && $data["File"]!='')
+            {
+                $img=$data["File"];
+                $img_folder="File";
+                $img_size=getimagesize($path."upload/".$class."/File/".$data["File"]);
+            }
+            else
+            {
+                $img="";
+                $img_size=array(0,0);
+            }
+
+            echo "<tr onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)' class='normal' >";
+
+            if($form=="check")
+            {
+                echo"<th><input type='checkbox' name='ID_".$class."[]' value=".$data['ID']."></th>";
+            }
+            elseif($form=="radio")
+            {
+                echo"<th><input type='radio' name='ID_".$class."' value=".$data['ID']."></th>";
+            }
+
+            //Definition of the URL to go to when a cell is clicked, with all of the information on where we come from in GET
+            if($class == 'micrograph')
+            {
+                $address="/Tylecote_collection/detailed_view.php?id=".$data['ID_object']."&class=object&action=".$action."&interest=micrograph";
+            }
+            else
+            {
                 $address="/Tylecote_collection/detailed_view.php?id=".$data['ID']."&class=".$class."&action=".$action;
-                if(isset($_GET['collection']) && isset($_GET['drawer']))
+            }
+            if(isset($_GET['collection']) && isset($_GET['drawer']))
+            {
+                $address=$address."&collection=".$_GET['collection']."&drawer=".$_GET['drawer'];
+            }
+            if(isset($_GET['sort_column']))
+            {
+                $address=$address."&sort_column=".$_GET['sort_column'];
+            }
+            if(isset($_GET['order']))
+            {
+                $address=$address."&order=".$_GET['order'];
+            }
+            if(isset($page))
+            {
+                $address=$address."&page=".$page;
+            }
+            if(isset($search_text))
+            {
+                $address=$address."&search_text=".str_replace(" ", "_", $search_text);
+            }
+
+            //Display each cell
+            foreach ($fields_array as $key=>$field)
+            {
+                if($class!="thesaurus_term")
                 {
-                    $address=$address."&collection=".$_GET['collection']."&drawer=".$_GET['drawer'];
+                    if($field!="Photo" && $field!="Drawing" && $field!="File" && $field!="ID_metallography" && $field!="ID_object" && $field!="Description")
+                    {
+                        echo"<td onclick=DoNav('".$address."')>".$data[$field]."</td>";
+                    }
                 }
-                if(isset($_GET['sort_column']))
+                elseif($class=="thesaurus_term")
                 {
-                    $address=$address."&sort_column=".$_GET['sort_column'];
+                    echo"<td onclick=DoNav('/Tylecote_collection/admin/edit_thesaurus.php?id=".$data['ID']."');>".$data["$field"]."</td>";
                 }
-                if(isset($_GET['order']))
-                {
-                    $address=$address."&order=".$_GET['order'];
-                }
-                if(isset($page))
-                {
-                    $address=$address."&page=".$page;
-                }
-                if(isset($search_text))
-                {
-                    $address=$address."&search_text=".str_replace(" ", "_", $search_text);
-                }
-                
-                //Display each cell
-		foreach ($fields_array as $key=>$field)
-		{
-			if($class!="thesaurus_term")
-			{
-                            if($field!="Photo" && $field!="Drawing")
-                            {
-                                echo"<td onclick=DoNav('".$address."')>".$data[$field]."</td>";
-                            }
-			}
-                        elseif($class=="thesaurus_term")
-                        {
-                            	echo"<td onclick=DoNav('/Tylecote_collection/admin/edit_thesaurus.php?id=".$data['ID']."');>".$data["$field"]."</td>";
-                        }
-                        
-		}
-		if(isset($img) && $img!="")
-		{
-			echo"<td onclick=DoNav('".$address."')><IMG SRC='".$path."upload/".$class."/".$img_folder."/".$img."' ALT='No image' TITLE='Image'".($img_size[0]>$img_size[1]?"width='60'":"height='60'")."></td></tr>";
-		}
-                elseif($class!="publication" && $class!="thesaurus_term") {
-                    	echo"<td onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data['ID']."&class=".$class."');></td></tr>";
-                }
-                else echo"</tr>";
-                
+
+            }
+            if(isset($img) && $img!="")
+            {
+                echo"<td onclick=DoNav('".$address."')><IMG SRC='".$path."upload/".$class."/".$img_folder."/".$img."' ALT='No image' TITLE='Image'".($img_size[0]>$img_size[1]?"width='60'":"height='60'")."></td></tr>";
+            }
+            elseif($class!="publication" && $class!="thesaurus_term")
+            {
+                echo"<td onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data['ID']."&class=".$class."');></td></tr>";
+            }
+            else echo"</tr>";
 	}
 	echo"</table>";
 }

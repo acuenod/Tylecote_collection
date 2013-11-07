@@ -18,7 +18,7 @@ function display_details($id, $class)
     }
     if ($class=="publication")
     {
-            $fields_list="Author, Date, Title, Journal, Volume, Issue, Book_title, Editor, City, Publisher, Oxf_location, Comment, Date_added";
+            $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Comment, Date_added";
     }
     if ($class=="metallography")
     {
@@ -30,7 +30,7 @@ function display_details($id, $class)
     }
     $fields_array=explode(", ", $fields_list);
     
-    //Definition of special fields (images and chemical elements
+    //Definition of special fields (images and chemical elements)
     $array_images=array("Photo", "Drawing", "Card_scan_front", "Card_scan_back");
     $array_chemistry[1]=array("Cu", "Sn", "Pb", "Zn", "Arsenic", "Sb", "Ag", "Ni", "Co", "Bi", "Fe", "Au");
     $array_chemistry[2]=array("C", "Si", "Mn", "P", "S", "Cr", "Ca", "O", "Cd", "Al", "Mg", "K", "Ti", "Se", "Cl");
@@ -68,9 +68,10 @@ function display_details($id, $class)
                     echo"<IMG SRC='upload/micrograph/File/".$data2['File']."' ALT='' TITLE='".$data2['File']."' style='max-width:100%; max-height:250px;' /><br>";
                     if($data2['ID_publication']!=0 || $data2['Fig_nb']!='' || $data2['Magnification']!='' || $data2['Description']!='' || $data2['ID_sample']!=0)
                     {
+                        echo"<br>";
                         echo"<table class='micrograph'>";
                         //echo"<tr><th>Publication</th><th>Figure</th><th>Magnification</th><th>Description</th><th>Sample</th></tr>";
-                        echo"<tr><td onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)' onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data2['ID_publication']."&class=publication');>".$data2['Author'].", ".$data2['Date']."</td>";
+                        echo"<tr><td onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)' onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data2['ID_publication']."&class=publication&action=link');>".$data2['Author'].", ".$data2['Date']."</td>";
                         echo"<td>".$data2['Fig_nb']."</td><td>".$data2['Magnification']."</td><td>".$data2['Description']."</td>";
                         if(isset($data2['Photo']) && $data2['Photo']!='')
                         {
@@ -87,7 +88,7 @@ function display_details($id, $class)
                                 echo "<tr><th>".$key."</th><td>".$data2[$key]."</td></tr>";
                             }
                         }
-                        echo"</table>";
+                        echo"</table><br>";
                     }
                     
                     //Displays the buttons to modify and delete the micrographs and their information
@@ -98,7 +99,7 @@ function display_details($id, $class)
                         echo"<input type='submit' value='Delete''/>";
                         echo"</form>";
                     }
-                    echo"<br><br>";
+                    //echo"<br><br>";
                 }
             }
         }
