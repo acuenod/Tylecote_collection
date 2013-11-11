@@ -15,11 +15,20 @@
             
             <h2>Link objects and publications or samples</h2>
             
-            <?php 
+            Click on the box to the left of the object(s) to be linked and then on the boxes left of 
+            the samples and/or publications they should be linked to.<br>
+            Finally click on the link button at the bottom of the page.<br>
+            <br>
+            This page can take a while to load. Please be patient. <br>
+            
+            <?php
             include '../functions/db_connect.php';
             include '../functions/display_table.php';
             
             $db=db_connect();
+            
+            //Lenghten the timeout limit on the page to give it time to load all the tables
+            set_time_limit(120);
             
             //Definition of the 3 classes of items we want to display
             $classes=array("object", "sample", "publication");
@@ -59,6 +68,7 @@
                 <h3>Samples</h3> 
                      <?php display_table($db, $sql['sample'], $fields_array['sample'], "sample", "check", "link", 0);?>
                 </div>
+                <br>
                 <input type='submit' value='Link '/>
             </form>
             

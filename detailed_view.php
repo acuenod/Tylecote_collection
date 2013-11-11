@@ -237,7 +237,7 @@
             }
 
             //Diplays the linked samples, objects or publications
-            display_linked($id, $class, false);
+            display_linked($id, $class, false, 0, 0);
             
             //Displays the Add, Modify and Delete buttons if the user is at least a writer (access>1)
             echo '<br><br>';
@@ -247,7 +247,7 @@
 
                 echo"<form method='post' enctype='multipart/form-data' class='form' action ='writer/delete.php?id=".$id." &class=".$class."' onsubmit='return confirm_delete(".$id.")'>";
                 echo"<input type='submit' value='Delete this item from database''/>";
-                echo"</form>";
+                echo"</form><br><br>";
 
                 if($class=="object" )
                 {

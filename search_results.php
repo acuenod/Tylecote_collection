@@ -11,7 +11,10 @@
         <?php include 'header.php'; ?>
         <div id="wrapper">
             <h1>Search results</h1>
-            Click on a line to see more detail <br><br>
+            Your results are displayed in four categories of entries: Objects, Samples, Publications and Micrographs.<br>
+            Scroll down to see all categories.<br>
+            Click on a line to see more detail on a particular search result.<br>
+            
             <?php 
             include 'functions/db_connect.php';
             include 'functions/display_table.php';
@@ -247,7 +250,7 @@
 
                 //Displays the table of results
                 $sql = "SELECT ".$class.".ID, ".$detailed_fields_list." FROM ".$table." WHERE ".$class.".Is_deleted=0 AND (".$clause_final.")";
-                display_table($db, $sql, $fields_array, $class, false, "search", 0, $search_text);
+                display_table($db, $sql, $fields_array, $class, false, 0, "search", 0, $search_text);
             }
             
             db_close($db);

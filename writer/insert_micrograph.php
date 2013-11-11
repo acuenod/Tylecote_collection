@@ -16,12 +16,25 @@
             include '../functions/display_linked.php'; 
             include '../globals.php';
             ?>
+            
+             <!-- If the the writer has forgotten to upload a micrograph, an alert is displayed -->
+            <script language="JavaScript">
+                function validateForm()
+                {
+                    var file=document.getElementById("fileToUpload");
+                    if(file.value==null || file.value=="")
+                    {
+                        alert ("You must upload a micrograph!");
+                        return false;
+                    }
+                }
+            </script>
 
             <h1>Insert a new micrograph</h1>
 
             <form method="post" action="add.php" enctype="multipart/form-data" class="form">
                 Upload a micrograph:
-                <input type="file" name="File" /></br>
+                <input type="file" id="fileToUpload" name="File" /></br>
                 </br>
                 Description: </br>
                 <textarea name="Description" rows="5" cols="45"></textarea> </br>
@@ -36,9 +49,9 @@
                     $id_metallo=$_GET['id_metallo'];
                     echo"<input type='hidden' name='ID_object' value=".$id." />";
                     echo"<input type='hidden' name='ID_metallography' value=".$id_metallo." />";
-                    display_linked($id, "object", "radio");
+                    display_linked($id, "object", "radio", 0, 0);
                 ?>
-                
+                <br>
                 <h3>Which of the following features are present?</h3>
                 <table>
                     <tr>
@@ -69,7 +82,7 @@
                 </table>
 
                 <input type="hidden" name="class" value="micrograph" />
-                <input type="submit" value="Add micrograph" />
+                <input type="submit" value="Add micrograph" onclick="return validateForm()"/>
                 </br>
                 </br>
             </form>

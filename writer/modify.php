@@ -77,7 +77,12 @@
                     //Display of images
                     elseif($field=="Photo" || $field=="Drawing" || $field=="Card_scan_front" || $field=="Card_scan_back" || $field=="Micrograph" || $field=="File")
                     {
-                        echo'<br>Upload a new '.$field.': <input type="file" name="'.$field.'"/> or <input type="checkbox" name="delete_'.$field.'" id="delete_'.$field.'" /> <label for="delete_'.$field.'">Delete previous '.$field.'</label><br />';
+                        echo'<br>Upload a new '.$field.': <input type="file" name="'.$field.'"/>';
+                        if($field!="File")
+                        {
+                            echo'or <input type="checkbox" name="delete_'.$field.'" id="delete_'.$field.'" /> <label for="delete_'.$field.'">Delete previous '.$field.'</label>';
+                        }
+                        echo'<br />';
                     }
                     //Display of text areas
                     elseif($field=="Description" || $field=="Comment" || $field=="Report" || $field=="Technology")
@@ -113,7 +118,7 @@
                 //And a form is available for a description of the features seen in the micrograph
                 if($class=="micrograph")
                 {
-                    display_linked($data['ID_object'], "object", "radio");
+                    display_linked($data['ID_object'], "object", "radio", $data['ID_publication'], $data['ID_sample']);
                     echo"<h3>Which of the following features are present?</h3>";
                     echo"<table><tr>";
                     foreach ($micrograph_features as $header=>$array_features)

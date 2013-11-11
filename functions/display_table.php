@@ -1,3 +1,14 @@
+ <!-- Alert to confirm the unlinking of items if "Unlink" button has been clicked in detailed_view.php -->
+<script language="JavaScript">
+    function confirm_unlink()
+    {
+        var answer = confirm ("Are you sure you want to unlink these items?")
+        if (answer)
+        return true;
+        else return false;
+    }
+</script>
+
 <?php
 
 /*function designed to display a clickable table of results from an sql request
@@ -5,15 +16,15 @@ arguments:
  * $sql: the SQL query
  * $fields_array: array of the fields that we want to display in the table
  * $class: string, the table in which the request is taking place (object, sample, publication, thesaurus_term)
- * $form: string, "check" if the table checkboxes of an html form: it will display a clikable box in the first colum of the table; "radio" if the first column is a radio button
+ * $form: string, "check" if the table checkboxes of an html form: it will display a clikable box in the first colum of the table; "radio" if the first column is a radio button (used in display linked)
+ * $checked: int, id of an element that should be preselected if the table is a form. 0 otherwise.
  * $action: string, "browse" "search" "link" or "thesaurus". "Browse" displays the results over several pages. Otherwise the table uses the sortable class to order the table by clicking on the column headers
  * $page: int. Indicates the number of the age of results that is displayed. Set to 0 if not on browse result
  * $search_text: string, optional. Passes the text of the search to the function
  */
 
-function display_table($db, $sql, $fields_array, $class, $form, $action, $page, $search_text=null)
+function display_table($db, $sql, $fields_array, $class, $form, $checked, $action, $page, $search_text=null)
 {
-        
         echo"<script src='/Tylecote_collection/functions/navigation.js'></script>";
         if($action=="search" || $action=="thesaurus")
         {
@@ -72,7 +83,7 @@ function display_table($db, $sql, $fields_array, $class, $form, $action, $page, 
         {
             echo"<table border=1 cellspacing=0 cellpadding=3 class='normal'>";
         }
-        elseif($action=="search")
+        elseif($action=="search" || $action=="link")
         {
             echo"<table border=1 cellspacing=0 cellpadding=3 class='sortable'>";
         }
@@ -104,8 +115,14 @@ function display_table($db, $sql, $fields_array, $class, $form, $action, $page, 
 	}
 	if($class!="publication" && $class!="thesaurus_term")
 	{
-		echo"<th>Photo</th><tr>";
+            echo"<th>Photo</th>";
 	}
+        if($action=="link" && $filename=="detailed_view.php" && isset($_SESSION["access"]) && $_SESSION["access"]>1)
+        {
+            echo"<th>Unlink</th>";
+        }
+        echo"<tr>";
+        
         
         
         //Displays the rows of the table
@@ -137,15 +154,23 @@ function display_table($db, $sql, $fields_array, $class, $form, $action, $page, 
                 $img_size=array(0,0);
             }
 
+            //Sets the variable $is_Checked to "" if this line isn't selected, "checked" if it is.
+            if($data['ID']==$checked)
+            {
+                $is_Checked="checked";
+            }
+            else $is_Checked="";
+            
+                        
             echo "<tr onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)' class='normal' >";
 
             if($form=="check")
             {
-                echo"<th><input type='checkbox' name='ID_".$class."[]' value=".$data['ID']."></th>";
+                echo"<th><input type='checkbox' name='ID_".$class."[]' value=".$data['ID']." ".$is_Checked."></th>";
             }
             elseif($form=="radio")
             {
-                echo"<th><input type='radio' name='ID_".$class."' value=".$data['ID']."></th>";
+                echo"<th><input type='radio' name='ID_".$class."' value=".$data['ID']." ".$is_Checked."></th>";
             }
 
             //Definition of the URL to go to when a cell is clicked, with all of the information on where we come from in GET
@@ -196,14 +221,34 @@ function display_table($db, $sql, $fields_array, $class, $form, $action, $page, 
             }
             if(isset($img) && $img!="")
             {
-                echo"<td onclick=DoNav('".$address."')><IMG SRC='".$path."upload/".$class."/".$img_folder."/".$img."' ALT='No image' TITLE='Image'".($img_size[0]>$img_size[1]?"width='60'":"height='60'")."></td></tr>";
+                echo"<td onclick=DoNav('".$address."')><IMG SRC='".$path."upload/".$class."/".$img_folder."/".$img."' ALT='No image' TITLE='Image'".($img_size[0]>$img_size[1]?"width='60'":"height='60'")."></td>";
             }
             elseif($class!="publication" && $class!="thesaurus_term")
             {
-                echo"<td onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data['ID']."&class=".$class."');></td></tr>";
+                echo"<td onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data['ID']."&class=".$class."');></td>";
             }
-            else echo"</tr>";
+            
+            //If we are displaying linked items in a Writer or Admin mode, give the option to unlink the items
+            if($action=="link" && $filename=="detailed_view.php" && isset($_SESSION["access"]) && $_SESSION["access"]>1)
+            {
+                echo"<td>
+                    <form action='writer/unlink_results.php' method='post'>
+                    <input type=hidden name='ID_element' value=".$_GET['id'].">
+                    <input type=hidden name='class_element' value=".$_GET['class'].">
+                    <input type=hidden name='ID_linked' value=".$data['ID'].">
+                    <input type=hidden name='class_linked' value=".$class.">
+                    <input type='submit' value='Unlink' onClick='return  confirm_unlink()'>
+                    </form>
+                    </td>";
+            }
+            echo"</tr>";
 	}
+        //Adds the option of no known publications or samples related to a micrograph in case a radio button has been selected by mistake
+        if($form=="radio")
+        {
+            echo"<tr><th><input type='radio' name='ID_".$class."' value='0'></th>
+                <td colspan=5>No known ".$class." relating to this micrograph</td></tr>";
+        }
 	echo"</table>";
 }
 
