@@ -32,6 +32,9 @@
                 <textarea name="Comment" rows="5" cols="45">
                 </textarea> </br>
                 </br>
+                Upload a pdf:
+                <input type="file" name="Pdf" /></br>
+                </br>
                 <input type="hidden" name="class" value="publication" />
                 <input type="submit" value="Add Publication" />
                 </br>

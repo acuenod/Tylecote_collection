@@ -8,7 +8,7 @@ function display_linked($id, $class, $form, $checked_publications, $checked_samp
 	$fileds_array=array();
 	$fields_list['object']="Type, Site, Date_strati, Museum_nb, Field_nb, Catalogue_nb, Photo, Drawing";
 	$fields_list['sample']="Sample_type, Sample_nb, Sample_material, Object_part, Photo";
-	$fields_list['publication']="Author, Date, Title, Journal, Book_title";
+	$fields_list['publication']="Author, Date, Title, Journal";
 
 	foreach ($fields_list as $key=>$list)
 	{

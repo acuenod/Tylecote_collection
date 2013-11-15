@@ -247,7 +247,7 @@
 
                 echo"<form method='post' enctype='multipart/form-data' class='form' action ='writer/delete.php?id=".$id." &class=".$class."' onsubmit='return confirm_delete(".$id.")'>";
                 echo"<input type='submit' value='Delete this item from database''/>";
-                echo"</form><br><br>";
+                echo"</form>";
 
                 if($class=="object" )
                 {

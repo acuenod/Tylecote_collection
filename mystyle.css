@@ -41,7 +41,7 @@ body {
 #headerTitle{
         float:left;
 	height:85px;
-        width:700px;
+        width:680px;
         padding:15px;
 	font-size:32px;
         font-family: Geneva,Arial,Helvetica,sans-serif;
@@ -52,9 +52,9 @@ body {
 #headerTitle{
         float:left;
 	height:40px;
-        width:700px;
+        width:680px;
         padding:35px 15px 0 15px;
-	font-size:32px;
+	font-size:30px;
         font-family: Geneva,Arial,Helvetica,sans-serif;
         font-weight: lighter;
         font-variant: small-caps;
@@ -63,7 +63,7 @@ body {
 #headerSubtitle{
         float:left;
 	height:30px;
-        width:700px;
+        width:680px;
         padding:0 15px 10px 15px;
 	font-size:20px;
         font-family: Geneva,Arial,Helvetica,sans-serif;
@@ -74,6 +74,7 @@ body {
 #headerTop{
         font-size:12px;
         float:right;
+        width:105px;
 }
 #headerTop a:link {
         color: white
@@ -99,55 +100,55 @@ body {
         box-shadow: 25px 0px 25px -10px black, -25px 0px 25px -10px black, inset 0 -18px 2px 0px grey;
 }
 
-  #search{
+#search{
         float:right;
         font-size:12px;
         border-left: 1px solid #999999;
         color: #F6F6F6;
         height: 26px;
-        padding: 2px 18px;
+        padding: 2px 15px;
   }
-  p{
-    color: black;
-    }
-  h1 {
-    font-family: Verdana,Arial,Helvetica,sans-serif;
-    color:  #444444;
-    text-align:left;
-    font-size: 24px;
-    font-weight: lighter;
+p{
+        color: black;
 }
-  h2 {
-    font-family: Verdana,Arial,Helvetica,sans-serif;
-    color:  #444444;
-    text-align:left;
-    font-size: 18px;
-    font-weight: lighter;
+h1 {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        color:  #444444;
+        text-align:left;
+        font-size: 24px;
+        font-weight: lighter;
+    }
+h2 {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        color:  #444444;
+        text-align:left;
+        font-size: 18px;
+        font-weight: lighter;
   }
-  h3 {
-    font-family: Verdana,Arial,Helvetica,sans-serif;
-    color:  #444444;
-    text-align:left;
-    font-size: 14px;
-    font-weight: lighter;
+h3 {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        color:  #444444;
+        text-align:left;
+        font-size: 14px;
+        font-weight: lighter;
   }
-  hr {
-   color: #011e4a;
-   background-color: #011e4a;
-   height: 1px;
+hr {
+        color: #011e4a;
+        background-color: #011e4a;
+        height: 1px;
   }
 
-  ul.navbar {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    display: inline-table;
+ul.navbar {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        display: inline-table;
     }
-  ul.navbar:after {
+ul.navbar:after {
 	content: ""; clear: both; display: block;
     }
-  ul.navbar li {
+ul.navbar li {
         display:inline;
         float:left;
         font-size:12px;
@@ -155,10 +156,10 @@ body {
         color: #F6F6F6;
         display: block;
         height: 14px;
-        padding: 8px 18px;
+        padding: 8px 15px;
 }
 
-   ul.navbar ul {
+ul.navbar ul {
 	display: none;
         background: grey;
 	position: absolute; top: 100%;
@@ -181,9 +182,9 @@ ul.navbar li:hover > ul {
   .navbar a:visited {
         color: white
   }
-  a:link {
+a:link {
         color: black }
-  a:visited {
+a:visited {
        color: #00008B}
 
   table {
@@ -217,6 +218,11 @@ ul.navbar li:hover > ul {
     background-color: white;
     color: black;  
   }
+  .glossary{
+    width:100%;
+    border: none;
+    table-layout: auto;
+}
   th {
     font-weight:normal;
     color: white;
@@ -224,11 +230,17 @@ ul.navbar li:hover > ul {
     background-color: #011e4a;
     border:1px solid grey;
   }
-  .normalth { 
+  th a:link{ 
+    color: white;
+   }
+  th a:visited{ 
+    color: white;
+   }
+  .normal th { 
     color: white;
     background-color: #011e4a;
    }
-  .normalActiveth { 
+  .normalActive th { 
     color: white;
     background-color: grey;
     color: white;
@@ -240,6 +252,9 @@ ul.navbar li:hover > ul {
     background-color: transparent;
     border:1px solid transparent;
   }
+  .form th a{ 
+    color: black;
+   }
   .admin th{
     font-weight:normal;
     color: white;
@@ -247,6 +262,13 @@ ul.navbar li:hover > ul {
     background-color: #011e4a;
     border:1px solid grey;  
   }
+  .glossary th{
+    padding:10px;
+    border: none;
+    color: #444444;
+    font-weight: bold;
+    background-color: white;
+}
   td {
     border:1px solid grey;
   }
@@ -260,6 +282,11 @@ ul.navbar li:hover > ul {
     font-family: Arial, Sans-serif;
     border:2px solid grey;
   }
+  .glossary td{
+    padding:10px;
+    border: none;
+    color: #444444; 
+}
   form {
     color: black;
     font-family: Arial, Sans-serif;
@@ -336,6 +363,12 @@ ul.navbar li:hover > ul {
 #db_entered_info{
          font-style: italic;
          font-size: 12px;
+}
+
+#small_link{
+         font-style: italic;
+         font-size: 10px;
+         
 }
 
 #tabContainer {

@@ -14,6 +14,8 @@
         <?php
         include '../functions/db_connect.php'; 
         include '../functions/display_linked.php'; 
+        include '../globals.php';
+        global $array_chemistry;
         ?>
 
         <h1>Insert a new chemical analysis</h1>
@@ -35,21 +37,37 @@
             </br>
 
             Composition:</br>
-            <table>
-            <tr>
-            <th>%Cu</th><th>%Sn</th><th>%Pb</th><th>%Zn</th><th>%As</th><th>%Sb</th><th>%Ag</th><th>%Ni</th><th>%Co</th><th>%Bi</th><th>%Fe</th><th>%Au</th><th>%Si</th>
-            </tr>
-            <tr>
-            <td><input type="text" name="Cu" size="5"/></td><td><input type="text" name="Sn" size="5"/></td><td><input type="text" name="Pb" size="5"/></td><td><input type="text" name="Zn" size="5"/></td><td><input type="text" name="Arsenic" size="5" /></td><td><input type="text" name="Sb" size="5"/></td><td><input type="text" name="Ag" size="5"/></td><td><input type="text" name="Ni" size="5"/></td><td><input type="text" name="Co" size="5"/></td><td><input type="text" name="Bi" size="5" /></td><td><input type="text" name="Fe" size="5"/></td><td><input type="text" name="Au"size="5" /></td><td><input type="text" name="Si" size="5"/></td>
-            </tr>
-            <tr>
-            <th>%C</th><th>%Mn</th><th>%P</th><th>%S</th><th>%Cr</th><th>%Ca</th><th>%O</th><th>%Cd</th><th>%Al</th><th>%Mg</th><th>%K</th><th>%Ti</th><th>%Se</th><th>%Cl</th>
-            </tr>
-            <tr>
-            <td><input type="text" name="C" size="5"/></td><td><input type="text" name="Mn" size="5"/></td><td><input type="text" name="P" size="5"/></td><td><input type="text" name="S" size="5" /></td><td><input type="text" name="Cr" size="5"/></td><td><input type="text" name="Ca" size="5"/></td><td><input type="text" name="O" size="5"/></td><td><input type="text" name="Cd" size="5"/></td><td><input type="text" name="Al" size="5"/></td><td><input type="text" name="Mg" size="5"/></td><td><input type="text" name="K" size="5"/></td><td><input type="text" name="Ti" size="5"/></td><td><input type="text" name="Se" size="5"/></td><td><input type="text" name="Cl" size="5"/></td>
-            </tr>
-            </table>
-
+            
+            <?php
+            //Display of chemistry blocks
+            for($i=1; $i<=3; $i++)
+            {
+                echo"<br>";
+                echo"<table border=1 cellspacing=0 cellpadding=3 class='normal'>";
+                echo"<tr>";
+                foreach ($array_chemistry[$i] as $field)
+                {
+                    if ($field=="Arsenic") //Has to be done because "As" cannot be used as a column name as it has a particular meaning in SQL
+                    {
+                        echo "<th>%As</th>";
+                    }
+                    else
+                    {
+                        echo "<th>%".$field."</th>";
+                    }
+                }
+                echo"</tr>";
+                echo"<tr>";
+                foreach ($array_chemistry[$i] as $field)
+                {
+                        echo "<td><input type='text' name=".$field." size='3'></td>";
+                }
+                echo"</tr>";
+                echo"</table>";
+            }
+            ?>
+            
+            <br>
             Further description and comments: </br>
             <textarea name="Comment" rows="5" cols="45">
             </textarea> </br>

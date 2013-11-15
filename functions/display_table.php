@@ -22,9 +22,11 @@ arguments:
  * $page: int. Indicates the number of the age of results that is displayed. Set to 0 if not on browse result
  * $search_text: string, optional. Passes the text of the search to the function
  */
+include $_SERVER['DOCUMENT_ROOT']."/Tylecote_collection/globals.php";
 
 function display_table($db, $sql, $fields_array, $class, $form, $checked, $action, $page, $search_text=null)
 {
+        global $field_title;
         echo"<script src='/Tylecote_collection/functions/navigation.js'></script>";
         if($action=="search" || $action=="thesaurus")
         {
@@ -103,13 +105,13 @@ function display_table($db, $sql, $fields_array, $class, $form, $checked, $actio
                 if($action=="browse")
                 {
                     if($class=="sample")
-                        echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)' onclick=DoNav('".$filename."?sort_column=".$field."&order=".$order."&class=".$class."&collection=".$_GET['collection']."&drawer=".$_GET['drawer']."');>".$field."</th>";
+                        echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)' onclick=DoNav('".$filename."?sort_column=".$field."&order=".$order."&class=".$class."&collection=".$_GET['collection']."&drawer=".$_GET['drawer']."');>".$field_title[$field]."</th>";
                     else
-                        echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)' onclick=DoNav('".$filename."?sort_column=".$field."&order=".$order."&class=".$class."');>".$field."</th>";
+                        echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)' onclick=DoNav('".$filename."?sort_column=".$field."&order=".$order."&class=".$class."');>".$field_title[$field]."</th>";
                 }
                 else
                 {   
-                    echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)'>".$field."</th>";
+                    echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)'>".$field_title[$field]."</th>";
                 }
             }
 	}

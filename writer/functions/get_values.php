@@ -16,11 +16,11 @@ function get_values($post, $files)
     $db=db_connect();
     global $Type, $Description, $Material, $Site, $County, $Country, $Date_strati, $Date_typo, $Site_period, $Site_layer, $Museum, $Museum_nb, $Field_nb, $Catalogue_nb, $Weight, $Lenght, $Width, $Thickness, $Base_diameter, $Max_diameter, $Photo, $Drawing, $Card_scan_front, $Card_scan_back, $Comment;
     global $Sample_type, $Sample_nb, $Sample_material, $Sample_condition, $Date_sampled, $Object_part, $Section, $Collection, $Tylecote_notebook, $Drawer, $Date_repolished, $Location_new_drawer, $Location_new_code, $Photo, $Drawing, $Date_analysed, $Comment;
-    global $Author, $Date, $Title, $Journal, $Volume, $Issue, $Pages, $Book_title, $Editor, $City, $Publisher, $Oxf_location, $Comment;
+    global $Author, $Date, $Title, $Journal, $Volume, $Issue, $Pages, $Book_title, $Editor, $City, $Publisher, $Oxf_location, $Pdf, $Comment;
     global $ID_object, $ID_sample, $Object_part, $Technology, $Use_techno, $HV, $HB, $Report, $Date_metallo, $Analyst, $Comment;
-    global $ID_object, $Technique, $Sampling_method, $Nb_runs, $Date_analysed, $Lab, $Object_condition, $Object_part, $Cu, $Sn, $Pb, $Zn, $Arsenic, $Sb, $Ag, $Ni, $Co, $Bi, $Fe, $Au, $C, $Si, $Mn, $P, $S, $Cr, $Ca, $O, $Cd, $Al, $Mg, $K, $Ti, $Se, $Cl, $Comment;
+    global $ID_object, $Technique, $Sampling_method, $Nb_runs, $Date_analysed, $Lab, $Object_condition, $Object_part, $Cu, $Sn, $Pb, $Zn, $Arsenic, $Sb, $Ag, $Ni, $Co, $Bi, $Fe, $Au, $C, $Si, $Mn, $P, $S, $Cr, $Ca, $O, $Cd, $Al, $Mg, $K, $Ti, $Se, $Cl, $SiO2, $FeO, $MnO, $BaO, $P2O5, $CaO, $Al2O3, $K2O, $MgO, $TiO2, $SO3, $Na2O, $V2O5, $Comment;
     global $ID_metallography, $File, $Description, $Magnification, $Fig_nb, $ID_sample, $ID_publication, $Cu_structure, $Fe_structure, $Porosity, $Corrosion, $Inclusions, $C_content;
-    global $delete_Photo, $delete_Drawing, $delete_Card_scan_front, $delete_Card_scan_back, $delete_File;
+    global $delete_Photo, $delete_Drawing, $delete_Card_scan_front, $delete_Card_scan_back, $delete_File, $delete_Pdf;
    
     if($post['class']=="object")
     {
@@ -32,7 +32,7 @@ function get_values($post, $files)
     }
     elseif($post['class']=="publication")
     {
-            $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Comment";
+            $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Pdf, Comment";
     }
     elseif($post['class']=="metallography")
     {
@@ -40,7 +40,7 @@ function get_values($post, $files)
     }
     elseif($post['class']=="chemistry")
     {
-            $fields_list="ID_object, Technique, Sampling_method, Nb_runs, Date_analysed, Lab, Object_condition, Object_part, Cu, Sn, Pb, Zn, Arsenic, Sb, Ag, Ni, Co, Bi, Fe, Au, C, Si, Mn, P, S, Cr, Ca, O, Cd, Al, Mg, K, Ti, Se, Cl, Comment";
+            $fields_list="ID_object, Technique, Sampling_method, Nb_runs, Date_analysed, Lab, Object_condition, Object_part, Cu, Sn, Pb, Zn, Arsenic, Sb, Ag, Ni, Co, Bi, Fe, Au, C, Si, Mn, P, S, Cr, Ca, O, Cd, Al, Mg, K, Ti, Se, Cl, SiO2, FeO, MnO, BaO, P2O5, CaO, Al2O3, K2O, MgO, TiO2, SO3, Na2O, V2O5, Comment";
     }
     elseif($post['class']=="micrograph")
     {
@@ -81,6 +81,8 @@ function get_values($post, $files)
     else      $Card_scan_back="";
     if(isset($files['File']['name']))      $File=$files['File']['name'];
     else      $File="";
+    if(isset($files['Pdf']['name']))      $Pdf=$files['Pdf']['name'];
+    else      $Pdf="";
 
     if(isset($post['delete_Photo']))      $delete_Photo="yes";
     else      $delete_Photo="no";
@@ -92,6 +94,8 @@ function get_values($post, $files)
     else      $delete_Card_scan_back="no";
     if(isset($post['delete_File']))      $delete_File="yes";
     else      $delete_File="no";
+    if(isset($post['delete_Pdf']))      $delete_Pdf="yes";
+    else      $delete_Pdf="no";
 
     db_close($db);
 }

@@ -15,11 +15,15 @@
             include '../functions/db_connect.php';
             include 'functions/get_values.php';
             include 'functions/photo_upload.php';
-
+            include 'functions/pdf_upload.php';
+            
             $id=$_POST['id'];
             $class=$_POST['class'];
             photo_upload($_FILES, $class);
+            pdf_upload($_FILES, $class);
             get_values($_POST, $_FILES);
+            
+            
 
             //Definition of the fields to be updated for each class of item
             if($class=="object")
@@ -32,7 +36,7 @@
             }
             elseif($class=="publication")
             {
-                $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Comment";
+                $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Pdf, Comment";
             }
             elseif ($class=="metallography")
             {
@@ -40,7 +44,7 @@
             }
             elseif($class=="chemistry")
             {
-                $fields_list="Technique, Sampling_method, Nb_runs, Date_analysed, Lab, Object_condition, Object_part, Cu, Sn, Pb, Zn, Arsenic, Sb, Ag, Ni, Co, Bi, Fe, Au, C, Si, Mn, P, S, Cr, Ca, O, Cd, Al, Mg, K, Ti, Se, Cl, Comment";
+                $fields_list="Technique, Sampling_method, Nb_runs, Date_analysed, Lab, Object_condition, Object_part, Cu, Sn, Pb, Zn, Arsenic, Sb, Ag, Ni, Co, Bi, Fe, Au, C, Si, Mn, P, S, Cr, Ca, O, Cd, Al, Mg, K, Ti, Se, Cl, SiO2, FeO, MnO, BaO, P2O5, CaO, Al2O3, K2O, MgO, TiO2, SO3, Na2O, V2O5, Comment";
             }
             elseif ($class=="micrograph")
             {
@@ -55,11 +59,11 @@
             foreach($fields_array as $field)
             {
                 //If not image fields and not the last field
-                if($field!="C_content" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Comment")
+                if($field!="C_content" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Pdf" && $field!="Comment")
                 {
                     $sql=$sql.$field."='".$$field."', ";
                 }
-                //If last fields of the list  no comma afterwards
+                //If last fields of the list no comma afterwards
                 elseif($field=="Comment" || $field=="C_content")
                 {
                     $sql=$sql.$field."='".$$field."' ";
@@ -79,10 +83,10 @@
             }
 
             //Definition of the image and files fields
-            $array_illustrations=array("Photo", "Drawing", "Card_scan_front", "Card_scan_back", "File");
+            $array_files=array("Photo", "Drawing", "Card_scan_front", "Card_scan_back", "File", "Pdf");
             
             //Update or delete the images and file fields
-            foreach($array_illustrations as $field)
+            foreach($array_files as $field)
             {
                 $delete="delete_".$field;
                 if ($$field!="")

@@ -18,6 +18,8 @@
             include '../functions/display_linked.php';
             include '../globals.php';
             global $micrograph_features;
+            global $field_title;
+            global $array_chemistry;
             
             $id=$_GET['id'];
             $class=$_GET['class'];
@@ -34,7 +36,7 @@
             }
             elseif ($class=="publication")
             {
-                $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Comment";
+                $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Pdf, Comment";
             }
             elseif ($class=="metallography")
             {
@@ -42,7 +44,7 @@
             }
             elseif ($class=="chemistry")
             {
-                $fields_list="ID_object, Technique, Sampling_method, Nb_runs, Date_analysed, Lab, Object_condition, Object_part, Cu, Sn, Pb, Zn, Arsenic, Sb, Ag, Ni, Co, Bi, Fe, Au, C, Si, Mn, P, S, Cr, Ca, O, Cd, Al, Mg, K, Ti, Se, Cl, Comment";
+                $fields_list="ID_object, Technique, Sampling_method, Nb_runs, Date_analysed, Lab, Object_condition, Object_part, Cu, Sn, Pb, Zn, Arsenic, Sb, Ag, Ni, Co, Bi, Fe, Au, C, Si, Mn, P, S, Cr, Ca, O, Cd, Al, Mg, K, Ti, Se, Cl, SiO2, FeO, MnO, BaO, P2O5, CaO, Al2O3, K2O, MgO, TiO2, SO3, Na2O, V2O5, Comment";
             }
             elseif ($class=="micrograph")
             {
@@ -70,12 +72,12 @@
                 foreach($fields_array as $field)
                 {
                     //Display of normal text fields
-                    if($field!="ID" && $field!="ID_object" && $field!="ID_sample" && $field!="ID_publication" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Description" && $field!="Comment" && $field!="Report" && $field!="Technology" && !in_array($field, array_keys($micrograph_features)))
+                    if($field!="ID" && $field!="ID_object" && $field!="ID_sample" && $field!="ID_publication" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Pdf" && $field!="Description" && $field!="Comment" && $field!="Report" && $field!="Technology" && !in_array($field, array_keys($micrograph_features)) && !in_array($field, $array_chemistry[1]) && !in_array($field, $array_chemistry[2]) && !in_array($field, $array_chemistry[3]))
                     {
-                        echo'<br>'.$field.': <input type="text" name='.$field.' value="'.$data[$field].'"><br>';
+                        echo'<br>'.$field_title[$field].': <input type="text" name='.$field.' value="'.$data[$field].'"><br>';
                     }
-                    //Display of images
-                    elseif($field=="Photo" || $field=="Drawing" || $field=="Card_scan_front" || $field=="Card_scan_back" || $field=="Micrograph" || $field=="File")
+                    //Display of images and files
+                    elseif($field=="Photo" || $field=="Drawing" || $field=="Card_scan_front" || $field=="Card_scan_back" || $field=="Micrograph" || $field=="File" || $field=="Pdf")
                     {
                         echo'<br>Upload a new '.$field.': <input type="file" name="'.$field.'"/>';
                         if($field!="File")
@@ -90,7 +92,35 @@
                         echo'<br>'.$field.': <textarea name="'.$field.'" rows="5" cols="45">'.$data[$field].'</textarea> <br />';
                     }
                 }
-                
+                //Display of chemistry blocks
+                if ($class=="chemistry")
+                {
+                    for($i=1; $i<=3; $i++)
+                    {
+                        echo"<br>";
+                        echo"<table border=1 cellspacing=0 cellpadding=3 class='normal'>";
+                        echo"<tr>";
+                        foreach ($array_chemistry[$i] as $field)
+                        {
+                            if ($field=="Arsenic") //Has to be done because "As" cannot be used as a column name as it has a particular meaning in SQL
+                            {
+                                echo "<th>%As</th>";
+                            }
+                            else
+                            {
+                                echo "<th>%".$field."</th>";
+                            }
+                        }
+                        echo"</tr>";
+                        echo"<tr>";
+                        foreach ($array_chemistry[$i] as $field)
+                        {
+                                echo "<td><input type='text' name=".$field." value='".$data[$field]."' size='3'></td>";
+                        }
+                        echo"</tr>";
+                        echo"</table>";
+                    }
+                }
                 //For metallographies, we need to check if this metallography is the one selected for the description of the object.
                 //If so the check-box will appear checked
                 if($class=="metallography")

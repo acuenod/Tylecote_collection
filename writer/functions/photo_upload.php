@@ -15,7 +15,7 @@ function photo_upload($files, $class)
 {
     foreach($files as $key=>$array)
     {
-            if ($files[$key]['error'] == 0)
+            if ($files[$key]['error'] == 0 && $key!="Pdf")
             {
                     //echo"plop";
                     // Testons si le fichier n'est pas trop gros: dans php.ini valeur max est 3M ce qui est �gal � 3145728 bytes

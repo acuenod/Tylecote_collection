@@ -69,7 +69,7 @@
         }
         elseif ($class=="publication")
         {
-                $fields_list="Author, Date, Title, Journal, Book_title";
+                $fields_list="Author, Date, Title, Journal";
         }
         $fields_array=explode(", ", $fields_list);
         
@@ -104,12 +104,12 @@
         //Displays navigation buttons between pages above the table
         if($page > 1)
         {
-            echo"<input type='button' name='goto_first' value='<<  First' onclick='self.location.href=\"?sort_column=".$sort."&page=0&class=".$class.$address."\"'>   ";
+            echo"<input type='button' name='goto_first' value='<<  First' onclick='self.location.href=\"?sort_column=".$sort."&page=1&class=".$class.$address."\"'>   ";
             echo"<input type='button' name='goto_previous' value='< Previous' onclick='self.location.href=\"?sort_column=".$sort."&page=".($page - 1)."&class=".$class.$address."\"'>";
         }
         if($page < $numpages)
         {
-           echo"<input type='button' name='goto_previous' value='Next >' onclick='self.location.href=\"?sort_column=".$sort."&page=".($page + 1)."&class=".$class.$address."\"'>";
+           echo"<input type='button' name='goto_next' value='Next >' onclick='self.location.href=\"?sort_column=".$sort."&page=".($page + 1)."&class=".$class.$address."\"'>";
            echo"<input type='button' name='goto_last' value='Last >>' onclick='self.location.href=\"?sort_column=".$sort."&page=".($numpages)."&class=".$class.$address."\"'>";
         }
         
@@ -118,7 +118,7 @@
        
         //Fetches the items to be diplayed in the database and displays the table of results
         $sql = "SELECT ID, ".$fields_list." FROM ".$class." WHERE ".$clause." ORDER BY ".$sort." ".$order." LIMIT ".($rpp * ($page-1)).", ".($rpp);
-        display_table($db, $sql, $fields_array, $class, false, "browse", $page);
+        display_table($db, $sql, $fields_array, $class, false, 0, "browse", $page);
         
         //Displays navigation buttons between pages again under the table
         if($page > 1)

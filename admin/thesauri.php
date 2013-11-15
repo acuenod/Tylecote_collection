@@ -151,7 +151,7 @@
                 echo"<h3>List of terms:</h3>";
                 
                 $sql="SELECT ID, Term FROM thesaurus_term WHERE Domain='".$category."'AND Is_deleted=0";
-                display_table($db, $sql, $fields, "thesaurus_term", false, "thesaurus", 0);
+                display_table($db, $sql, $fields, "thesaurus_term", false, 0, "thesaurus", 0);
                 
                 echo"<br><hr><br>";
             }

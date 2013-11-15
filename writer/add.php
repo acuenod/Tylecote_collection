@@ -13,12 +13,14 @@
             <?php
             include 'functions/get_values.php';
             include 'functions/photo_upload.php';
+            include 'functions/pdf_upload.php';
             include '../functions/db_connect.php';
             
             //print_r($_POST);
             $class=$_POST['class'];
 
             photo_upload($_FILES, $class);
+            pdf_upload($_FILES, $class);
             get_values($_POST, $_FILES);
             
             //Definition of the fields to be inserted in the database for each class of item
@@ -32,7 +34,7 @@
             }
             elseif($class=="publication")
             {
-                $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Comment";
+                $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Pdf, Comment";
             }
             elseif($class=="metallography")
             {
@@ -40,7 +42,7 @@
             }
             elseif($class=="chemistry")
             {
-                $fields_list="ID_object, Technique, Sampling_method, Nb_runs, Date_analysed, Lab, Object_condition, Object_part, Cu, Sn, Pb, Zn, Arsenic, Sb, Ag, Ni, Co, Bi, Fe, Au, C, Si, Mn, P, S, Cr, Ca, O, Cd, Al, Mg, K, Ti, Se, Cl, Comment";
+                $fields_list="ID_object, Technique, Sampling_method, Nb_runs, Date_analysed, Lab, Object_condition, Object_part, Cu, Sn, Pb, Zn, Arsenic, Sb, Ag, Ni, Co, Bi, Fe, Au, C, Si, Mn, P, S, Cr, Ca, O, Cd, Al, Mg, K, Ti, Se, Cl, SiO2, FeO, MnO, BaO, P2O5, CaO, Al2O3, K2O, MgO, TiO2, SO3, Na2O, V2O5, Comment";
             }
             elseif ($class=="micrograph")
             {

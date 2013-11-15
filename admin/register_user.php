@@ -25,13 +25,13 @@
             if(isset($_POST) && !empty($_POST))
             {
                 //If the form to add a new user is filled in, check if the username already exists.
-                //If not insert it. If yes, or if the password is left blank display and alert.
+                //If not insert it. If yes, or if the password is left blank display an alert.
                 if(isset($_POST['username']) && !empty($_POST['username']))
                 {
                     $username=  mysqli_real_escape_string($db, $_POST['username']);
                     $sql="SELECT ID FROM user WHERE Username='".$username."' AND Is_deleted=0";
                     $result=db_query($db, $sql);
-                    $num_rows = mysqli_num_rows($db, $result);
+                    $num_rows = mysqli_num_rows($result);
                     if($num_rows==0 && $_POST['password']!='')
                     {
                         $password=  mysqli_real_escape_string($db, $_POST['password']);

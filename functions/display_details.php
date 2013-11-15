@@ -6,6 +6,9 @@ include $_SERVER['DOCUMENT_ROOT']."/Tylecote_collection/globals.php";
 function display_details($id, $class)
 {
     global $micrograph_features;
+    global $field_title;
+    global $array_chemistry;
+    
     //Definition of the fields displayed for each class of items
     $fields_array=array();
     if ($class=="object")
@@ -18,7 +21,7 @@ function display_details($id, $class)
     }
     if ($class=="publication")
     {
-            $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Comment, Date_added";
+            $fields_list="Author, Date, Title, Journal, Volume, Issue, Pages, Book_title, Editor, City, Publisher, Oxf_location, Pdf, Comment, Date_added";
     }
     if ($class=="metallography")
     {
@@ -26,14 +29,12 @@ function display_details($id, $class)
     }
     if ($class=="chemistry")
     {
-            $fields_list="ID, Technique, Sampling_method, Nb_runs, Date_analysed, Lab, Object_condition, Object_part, Cu, Sn, Pb, Zn, Arsenic, Sb, Ag, Ni, Co, Bi, Fe, Au, C, Si, Mn, P, S, Cr, Ca, O, Cd, Al, Mg, K, Ti, Se, Cl, Comment, Date_added";
+            $fields_list="ID, Technique, Sampling_method, Nb_runs, Date_analysed, Lab, Object_condition, Object_part, Cu, Sn, Pb, Zn, Arsenic, Sb, Ag, Ni, Co, Bi, Fe, Au, C, Si, Mn, P, S, Cr, Ca, O, Cd, Al, Mg, K, Ti, Se, Cl, SiO2, FeO, MnO, BaO, P2O5, CaO, Al2O3, K2O, MgO, TiO2, SO3, Na2O, V2O5, Comment, Date_added";
     }
     $fields_array=explode(", ", $fields_list);
     
-    //Definition of special fields (images and chemical elements)
+    //Definition of special fields (images)
     $array_images=array("Photo", "Drawing", "Card_scan_front", "Card_scan_back");
-    $array_chemistry[1]=array("Cu", "Sn", "Pb", "Zn", "Arsenic", "Sb", "Ag", "Ni", "Co", "Bi", "Fe", "Au");
-    $array_chemistry[2]=array("C", "Si", "Mn", "P", "S", "Cr", "Ca", "O", "Cd", "Al", "Mg", "K", "Ti", "Se", "Cl");
     
     //Connection to the database
     $db=db_connect();
@@ -52,6 +53,7 @@ function display_details($id, $class)
     {
         //Displays the illustrations
         echo"<div id='photo_display'>";
+        //If the item viewed is a metallography, display the information for each micrograph
         if ($class=="metallography")
         {
             //Fetches all the info for each micrograph
@@ -88,7 +90,8 @@ function display_details($id, $class)
                                 echo "<tr><th>".$key."</th><td>".$data2[$key]."</td></tr>";
                             }
                         }
-                        echo"</table><br>";
+                        echo"</table>";
+                        echo"<div id='small_link'><a href='glossary.php'>See glossary</a></div><br>";
                     }
                     
                     //Displays the buttons to modify and delete the micrographs and their information
@@ -121,10 +124,14 @@ function display_details($id, $class)
         echo"<table border=1 cellspacing=0 cellpadding=3 class='fiche'>";
         foreach ($fields_array as $key =>$field)
         {
-            if ($field!="ID" && !in_array($field, $array_images) && !in_array($field, $array_chemistry[1]) && !in_array($field, $array_chemistry[2]) && $field!="Date_added" && $field!="ID_sample")
+            if ($field!="ID" && !in_array($field, $array_images) && !in_array($field, $array_chemistry[1]) && !in_array($field, $array_chemistry[2]) && !in_array($field, $array_chemistry[3]) && $field!='Pdf' && $field!="Date_added" && $field!="ID_sample")
             {
-                //nl2br function allows to disply the linebreaks as entered by user
-                echo nl2br("<tr><th>".$field."</th><td>".$data["$field"]."</td></tr>");
+                if($field=="Tylecote_notebook" && $data[$field]!="" && file_exists($_SERVER['DOCUMENT_ROOT']."/Tylecote_collection/notebooks/Tyl_notebook_".$data[$field].".pdf"))
+                {
+                    echo"<tr><th>".$field_title[$field]."</th><td>".$data["$field"]." <a href='/Tylecote_collection/notebooks/Tyl_notebook_".$data["$field"].".pdf'>(View pdf)</a></td></tr>";
+                }
+                //nl2br function allows to display the linebreaks as entered by user
+                else echo nl2br("<tr><th>".$field_title[$field]."</th><td>".$data["$field"]."</td></tr>");
             }
         }
         echo"</table>";
@@ -132,7 +139,7 @@ function display_details($id, $class)
         //Displays the horizontal tables for the chemical composition
         if ($class=="chemistry")
         {
-            for($i=1; $i<=2; $i++)
+            for($i=1; $i<=3; $i++)
             {
                 echo"<br>";
                 echo"<table border=1 cellspacing=0 cellpadding=3 class='normal'>";
@@ -165,6 +172,12 @@ function display_details($id, $class)
         echo"<div id=db_entered_info>";
         echo"Added to database on: ".$data['Date_added'];
         echo"</div>";
+        
+         //For publications if the access is writer or admin (for copyright reasons) displays a button to open the pdf in a new tab/window (depending on browser settings)
+        if ($class=="publication" && $_SESSION["access"]>1 && $data['Pdf']!="")
+        {
+            echo"<br><input type='button' name='goto_pdf' value='View pdf' onclick='window.open(\"upload/publication/".$data['Pdf']."\")'><br>";
+        }
         
         //Displays the buttons to modify or delete the metallographies and chemistries and enter metallography
         if(($class=="metallography" || $class=="chemistry") && isset($_SESSION['access']) && $_SESSION['access']>1)
