@@ -48,7 +48,7 @@
             }
             elseif ($class=="micrograph")
             {
-                $fields_list="File, Description, Magnification, Fig_nb, ID_sample, ID_publication, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content";
+                $fields_list="File, Is_public, Description, Magnification, Fig_nb, ID_sample, ID_publication, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content";
             }
             $fields_array=explode(", ", $fields_list);
 

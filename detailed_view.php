@@ -49,7 +49,7 @@
             }
             else $class_nav=$class;
             
-            if($action!="link" && $action!="add" && $action!="modify")
+            if($action!="link" && $action!="add" && $action!="modify" && $action!="tables")
             {
                 //Definition of the previous and next id within a search result
                 if(isset($_SESSION['search_results'][$class_nav]))
@@ -136,10 +136,10 @@
                 else $next='';
             }
             
-            /*If we come from link no previous or next buttons are displayed.
+            /*If we come from link or tables no previous or next buttons are displayed.
              * Back is defined by the history of the browser. 
              */
-            elseif($action=="link")
+            elseif($action=="link" || $action=="tables")
             {
                 $previous='';
                 $next='';

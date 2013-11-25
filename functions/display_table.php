@@ -115,7 +115,7 @@ function display_table($db, $sql, $fields_array, $class, $form, $checked, $actio
                 }
             }
 	}
-	if($class!="publication" && $class!="thesaurus_term")
+	if($class!="publication" && $class!="thesaurus_term" && $class!="object" || ($class=="object" && isset($_SESSION['access'])))
 	{
             echo"<th>Photo</th>";
 	}
@@ -155,7 +155,7 @@ function display_table($db, $sql, $fields_array, $class, $form, $checked, $actio
                 $img="";
                 $img_size=array(0,0);
             }
-
+            
             //Sets the variable $is_Checked to "" if this line isn't selected, "checked" if it is.
             if($data['ID']==$checked)
             {
@@ -225,7 +225,7 @@ function display_table($db, $sql, $fields_array, $class, $form, $checked, $actio
             {
                 echo"<td onclick=DoNav('".$address."')><IMG SRC='".$path."upload/".$class."/".$img_folder."/".$img."' ALT='No image' TITLE='Image'".($img_size[0]>$img_size[1]?"width='60'":"height='60'")."></td>";
             }
-            elseif($class!="publication" && $class!="thesaurus_term")
+            elseif($class!="publication" && $class!="thesaurus_term" && $class!="object" || ($class=="object" && isset($_SESSION['access'])))
             {
                 echo"<td onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data['ID']."&class=".$class."');></td>";
             }

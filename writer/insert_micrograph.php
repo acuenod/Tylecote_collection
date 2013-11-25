@@ -36,6 +36,10 @@
                 Upload a micrograph:
                 <input type="file" id="fileToUpload" name="File" /></br>
                 </br>
+                Should this image be made available for the general public to view?<br>
+                <input type=radio name='Is_public' value='Y' />Yes</br>
+                <input type=radio name='Is_public' value='N' checked/>No</br>
+                <br>
                 Description: </br>
                 <textarea name="Description" rows="5" cols="45"></textarea> </br>
                 </br>

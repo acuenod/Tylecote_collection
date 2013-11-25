@@ -1,2 +1,6 @@
 #Ignore the images contained in the upload folder
 upload/
+
+#Ignore the notebooks contained in the notebooks folder
+notebooks/
+

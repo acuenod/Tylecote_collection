@@ -1,4 +1,5 @@
-<?php 
+<?php
+//Checks if the user is allowed on this page. If not goes to login page.
 $currentFile = $_SERVER["PHP_SELF"];
 $parts = Explode('/', $currentFile);
 $filename=$parts[count($parts) - 1];
@@ -29,19 +30,19 @@ else
         header("location:../login.php");
         exit;
     }
-    elseif($parent_file=="Tylecote_collection" && $filename!="login.php" && (!isset($_SESSION["access"])|| $_SESSION["access"]<1))
+    /*elseif($parent_file=="Tylecote_collection" && $filename!="login.php" && (!isset($_SESSION["access"])|| $_SESSION["access"]<1))
     {
         header("location:login.php");
         exit;
-    }
+    }*/
 }
 ?>
-
+<!-- Display of the header (logo, title, login/out, navbar and search)-->
 <div id="header">
     <div id="headerBox">
         <div id="headerTop">
             <?php
-            if(!isset($_SESSION) || empty($_SESSION))
+            if(!isset($_SESSION['username']))
             {
                 echo"<a href='".$path."login.php'>Sign in</a>";
             }

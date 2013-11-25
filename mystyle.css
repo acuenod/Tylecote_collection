@@ -329,6 +329,10 @@ a:visited {
         height:450px;
         overflow:scroll;
   }
+#wide_table {
+	width:100%;
+        overflow:scroll;
+  }
 #right {
 	float:right;
 	width:45%;

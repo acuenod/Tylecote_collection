@@ -57,7 +57,7 @@ function display_details($id, $class)
         if ($class=="metallography")
         {
             //Fetches all the info for each micrograph
-            $sql = "SELECT micrograph.ID, File, Description, Magnification, Fig_nb, ID_sample, sample.Photo, ID_publication, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content, Author, Date FROM micrograph
+            $sql = "SELECT micrograph.ID, File, Is_public, Description, Magnification, Fig_nb, ID_sample, sample.Photo, ID_publication, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content, Author, Date FROM micrograph
                  LEFT JOIN sample ON sample.ID=micrograph.ID_sample
                  LEFT JOIN publication ON publication.ID=micrograph.ID_publication
                  WHERE ID_metallography=".$data['ID']." AND micrograph.Is_deleted=0";
@@ -66,8 +66,15 @@ function display_details($id, $class)
             {
                 if(isset($data2['File']) && $data2['File']!='')
                 {
-                    $image_size=getimagesize("upload/micrograph/File/".$data2['File']);
-                    echo"<IMG SRC='upload/micrograph/File/".$data2['File']."' ALT='' TITLE='".$data2['File']."' style='max-width:100%; max-height:250px;' /><br>";
+                    if($data2['Is_public']=="Y" || isset($_SESSION['access']))
+                    {
+                        $image_size=getimagesize("upload/micrograph/File/".$data2['File']);
+                        echo"<IMG SRC='upload/micrograph/File/".$data2['File']."' ALT='' TITLE='".$data2['File']."' style='max-width:100%; max-height:250px;' /><br>";
+                    }
+                    else
+                    {
+                        echo"<br>This micrograph is not available for copyright reasons. Please refer to the publication cited below.<br><br>";
+                    }
                     if($data2['ID_publication']!=0 || $data2['Fig_nb']!='' || $data2['Magnification']!='' || $data2['Description']!='' || $data2['ID_sample']!=0)
                     {
                         echo"<br>";
@@ -108,13 +115,20 @@ function display_details($id, $class)
         }
         else //if item is not a metallography
         {
-            //Display all the images
+            //Display all the images except for the object images for non logged in users
             foreach($array_images as $key=>$image)
             {
                 if(isset($data["$image"]) && $data["$image"]!='')
-                {	
-                    $image_size=getimagesize("upload/".$class."/".$image."/".$data["$image"]);
-                    echo"<IMG SRC='upload/".$class."/".$image."/".$data["$image"]."' ALT='' TITLE='".$image."' style='max-width:100%; max-height:250px;' /><br><br>";
+                {
+                    if(($image=="Photo" || $image=="Drawing") && $class=="object" && !isset($_SESSION['access']))
+                    {
+                        echo "<br>The photo or drawing of this object is not available for copyright reasons.<br><br>";
+                    }
+                    else
+                    {
+                        $image_size=getimagesize("upload/".$class."/".$image."/".$data["$image"]);
+                        echo"<IMG SRC='upload/".$class."/".$image."/".$data["$image"]."' ALT='' TITLE='".$image."' style='max-width:100%; max-height:250px;' /><br><br>";
+                    }
                 }
             }
         }
@@ -159,7 +173,7 @@ function display_details($id, $class)
                 echo"<tr>";
                 foreach ($array_chemistry[$i] as $field)
                 {
-                        echo "<td>".$data["$field"]."</td>";
+                        echo "<td>".$data[$field]."</td>";
                 }
                 echo"</tr>";
                 echo"</table>";
@@ -174,7 +188,7 @@ function display_details($id, $class)
         echo"</div>";
         
          //For publications if the access is writer or admin (for copyright reasons) displays a button to open the pdf in a new tab/window (depending on browser settings)
-        if ($class=="publication" && $_SESSION["access"]>1 && $data['Pdf']!="")
+        if ($class=="publication" && isset($_SESSION["access"]) && $data['Pdf']!="")
         {
             echo"<br><input type='button' name='goto_pdf' value='View pdf' onclick='window.open(\"upload/publication/".$data['Pdf']."\")'><br>";
         }

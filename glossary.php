@@ -35,7 +35,7 @@
             <br>
             - Scott, D. A. (1991). <i>Metallography and microstructure of ancient and historic metals.</i> Getty Conservation Institute; J. Paul Getty Museum, in association with Archtype Books.<br>
             <br>
-            - <a href="http://users.ox.ac.uk/~salter2/glossary/glos-a.html">Chris Salter's webpage</a><br>
+            - Chris Salter's webpage <a href="http://users.ox.ac.uk/~salter2/glossary/glos-a.html">(Visit page)</a>.<br>
             <br>
             - Hoyland, R. G., & Gilmour, B. J. (2006). <i>Medieval Islamic Swords and Swordmaking: Kindi's Treatise" On Swords and Their Kinds".</i> Gibb Memorial Trust.<br>
             <br>

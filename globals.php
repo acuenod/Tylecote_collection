@@ -27,6 +27,7 @@
     $field_title['Location_new_drawer']="New drawer";
     $field_title['Location_new_code']="New code";
     $field_title['Comment']="Comment";
+    $field_title['Location']="Location";               // For the merged location fields in tables_results
     //Objects
     $field_title['Type']="Type";
     $field_title['Description']="Description";
@@ -48,6 +49,8 @@
     $field_title['Thickness']="Thickness";
     $field_title['Base_diameter']="Base diameter";
     $field_title['Max_diameter']="Maximum diameter";
+    $field_title['Identification']="Identification no.";    // For the merged code fields in tables_results
+    $field_title['Image']="Image";                          // For the merged image fields in tables_results
     //Metallography
     $field_title['Technology']="Technology";
     $field_title['HV']="<a href='/Tylecote_collection/glossary.php'>Hardness HV</a>";
@@ -84,6 +87,8 @@
     $field_title['Corrosion']="Corrosion";
     $field_title['Inclusions']="Inclusions";
     $field_title['C_content']="Carbon content";
+    $field_title['Micrograph']="Micrograph";
+    $field_title['Micrograph_features']="Micrograph features";  // For the merged features fields in tables_results
     //Thesaurus
     $field_title['Term']="Term";
     
@@ -92,5 +97,27 @@
     $array_chemistry[1]=array("Cu", "Sn", "Pb", "Zn", "Arsenic", "Sb", "Ag", "Ni", "Co", "Bi", "Fe", "Au");
     $array_chemistry[2]=array("C", "Si", "Mn", "P", "S", "Cr", "Ca", "O", "Cd", "Al", "Mg", "K", "Ti", "Se", "Cl");
     $array_chemistry[3]=array("SiO2", "FeO", "MnO", "BaO", "P2O5", "CaO", "Al2O3", "K2O", "MgO", "TiO2", "SO3", "Na2O", "V2O5");
+    foreach($array_chemistry as $array)
+    {
+        foreach($array as $element)
+        {
+            if($element!="Arsenic")
+            {
+                $field_title[$element]="% ".$element;
+            }   
+        }
+    }
+    $field_title['Arsenic']="% As";
     
+    //Array for the definition of the correspondance between the fields proposed in the drop-down menu in tables_choices
+    // and the actual fields to be searched in tables_results.
+    $fields_correspondance=array();
+    $fields_correspondance['All']=array('object.Type', 'object.Material', 'object.Site', 'object.County', 'object.Country', 
+        'object.Date_typo', 'object.Date_strati', 'object.Site_period', 'object.Museum', 'sample.sample_Material', 
+        'publication.Author', 'publication.Date', 'publication.Title', 'publication.Journal', 'publication.Book_title');
+    $fields_correspondance['Type']=array('object.Type');
+    $fields_correspondance['Site']=array('object.Site', 'object.County', 'object.Country');
+    $fields_correspondance['Date']=array('object.Date_typo', 'object.Date_strati', 'object.Site_period');
+    $fields_correspondance['Material']=array('object.Material', 'sample.Sample_material');
+    $fields_correspondance['Author']=array('publication.Author');
 ?>

@@ -10,7 +10,7 @@
     <div id="content">
 	<?php include 'header.php'; ?>
 	<div id="wrapper">
-	You have been successfuly logged out. Please login to view or edit the database.
+	You have been successfully logged out. Please login to edit the database.
 	</div>
     </div>
     <?php include 'footer.php'; ?>

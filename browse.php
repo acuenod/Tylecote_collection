@@ -59,9 +59,13 @@
         
         //Definition of the fields to be displayed for each class of items
         $fields_array=array();
-        if ($class=="object")
+        if ($class=="object" && isset($_SESSION['access']))
         {
                 $fields_list="Type, Material, Site, Date_strati, Date_typo, Museum_nb, Field_nb, Photo, Drawing";
+        }
+        elseif ($class=="object")
+        {
+                $fields_list="Type, Material, Site, Date_strati, Date_typo, Museum_nb, Field_nb";
         }
         elseif ($class=="sample")
         {

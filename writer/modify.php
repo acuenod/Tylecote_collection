@@ -48,7 +48,7 @@
             }
             elseif ($class=="micrograph")
             {
-                $fields_list="File, Description, Magnification, Fig_nb, ID_sample, ID_publication, ID_object, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content";
+                $fields_list="File, Is_public, Description, Magnification, Fig_nb, ID_sample, ID_publication, ID_object, Cu_structure, Fe_structure, Porosity, Corrosion, Inclusions, C_content";
             }
             $fields_array=explode(", ", $fields_list);
             
@@ -72,7 +72,7 @@
                 foreach($fields_array as $field)
                 {
                     //Display of normal text fields
-                    if($field!="ID" && $field!="ID_object" && $field!="ID_sample" && $field!="ID_publication" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Pdf" && $field!="Description" && $field!="Comment" && $field!="Report" && $field!="Technology" && !in_array($field, array_keys($micrograph_features)) && !in_array($field, $array_chemistry[1]) && !in_array($field, $array_chemistry[2]) && !in_array($field, $array_chemistry[3]))
+                    if($field!="ID" && $field!="ID_object" && $field!="ID_sample" && $field!="ID_publication" && $field!="Photo" && $field!="Drawing" && $field!="Card_scan_front" && $field!="Card_scan_back" && $field!="File" && $field!="Is_public" && $field!="Pdf" && $field!="Description" && $field!="Comment" && $field!="Report" && $field!="Technology" && !in_array($field, array_keys($micrograph_features)) && !in_array($field, $array_chemistry[1]) && !in_array($field, $array_chemistry[2]) && !in_array($field, $array_chemistry[3]))
                     {
                         echo'<br>'.$field_title[$field].': <input type="text" name='.$field.' value="'.$data[$field].'"><br>';
                     }
@@ -90,6 +90,24 @@
                     elseif($field=="Description" || $field=="Comment" || $field=="Report" || $field=="Technology")
                     {
                         echo'<br>'.$field.': <textarea name="'.$field.'" rows="5" cols="45">'.$data[$field].'</textarea> <br />';
+                    }
+                    
+                    //Display of check box
+                    elseif($field=='Is_public')
+                    {
+                        if ($data['Is_public']=="Y")
+                        {
+                            $checked_Y="checked";
+                            $checked_N="";
+                        }
+                        else
+                        {
+                            $checked_Y="";
+                            $checked_N="checked";
+                        }
+                        echo"<br>Should this image be made available for the general public to view?<br>";
+                        echo"<input type=radio name='Is_public' value='Y' ".$checked_Y."/>Yes</br>";
+                        echo"<input type=radio name='Is_public' value='N' ".$checked_N."/>No</br>";
                     }
                 }
                 //Display of chemistry blocks

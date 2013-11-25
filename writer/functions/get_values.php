@@ -11,7 +11,7 @@
 
 
 function get_values($post, $files)
-{
+{   
     include $_SERVER['DOCUMENT_ROOT']."/Tylecote_collection/globals.php";
     $db=db_connect();
     global $Type, $Description, $Material, $Site, $County, $Country, $Date_strati, $Date_typo, $Site_period, $Site_layer, $Museum, $Museum_nb, $Field_nb, $Catalogue_nb, $Weight, $Lenght, $Width, $Thickness, $Base_diameter, $Max_diameter, $Photo, $Drawing, $Card_scan_front, $Card_scan_back, $Comment;
@@ -19,7 +19,7 @@ function get_values($post, $files)
     global $Author, $Date, $Title, $Journal, $Volume, $Issue, $Pages, $Book_title, $Editor, $City, $Publisher, $Oxf_location, $Pdf, $Comment;
     global $ID_object, $ID_sample, $Object_part, $Technology, $Use_techno, $HV, $HB, $Report, $Date_metallo, $Analyst, $Comment;
     global $ID_object, $Technique, $Sampling_method, $Nb_runs, $Date_analysed, $Lab, $Object_condition, $Object_part, $Cu, $Sn, $Pb, $Zn, $Arsenic, $Sb, $Ag, $Ni, $Co, $Bi, $Fe, $Au, $C, $Si, $Mn, $P, $S, $Cr, $Ca, $O, $Cd, $Al, $Mg, $K, $Ti, $Se, $Cl, $SiO2, $FeO, $MnO, $BaO, $P2O5, $CaO, $Al2O3, $K2O, $MgO, $TiO2, $SO3, $Na2O, $V2O5, $Comment;
-    global $ID_metallography, $File, $Description, $Magnification, $Fig_nb, $ID_sample, $ID_publication, $Cu_structure, $Fe_structure, $Porosity, $Corrosion, $Inclusions, $C_content;
+    global $ID_metallography, $File, $Is_public, $Description, $Magnification, $Fig_nb, $ID_sample, $ID_publication, $Cu_structure, $Fe_structure, $Porosity, $Corrosion, $Inclusions, $C_content;
     global $delete_Photo, $delete_Drawing, $delete_Card_scan_front, $delete_Card_scan_back, $delete_File, $delete_Pdf;
    
     if($post['class']=="object")
@@ -44,7 +44,7 @@ function get_values($post, $files)
     }
     elseif($post['class']=="micrograph")
     {
-            $fields_list="ID_metallography, ID_object, File, Description, Magnification, Fig_nb, ID_sample, ID_publication";
+            $fields_list="ID_metallography, ID_object, File, Is_public, Description, Magnification, Fig_nb, ID_sample, ID_publication";
     }
     $fields_array=explode(", ", $fields_list);
 

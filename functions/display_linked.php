@@ -6,7 +6,13 @@ function display_linked($id, $class, $form, $checked_publications, $checked_samp
 	$classes=array("object", "sample", "publication");
 	$fields_list=array();
 	$fileds_array=array();
-	$fields_list['object']="Type, Site, Date_strati, Museum_nb, Field_nb, Catalogue_nb, Photo, Drawing";
+        if(isset($_SESSION['access']))
+        {
+            	$fields_list['object']="Type, Site, Date_strati, Museum_nb, Field_nb, Catalogue_nb, Photo, Drawing";
+        }
+        else {
+            	$fields_list['object']="Type, Site, Date_strati, Museum_nb, Field_nb, Catalogue_nb";
+        }
 	$fields_list['sample']="Sample_type, Sample_nb, Sample_material, Object_part, Photo";
 	$fields_list['publication']="Author, Date, Title, Journal";
 
