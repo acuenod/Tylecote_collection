@@ -57,6 +57,7 @@
                 {
                     foreach($_POST['update_glossary_definition'] as $ID => $updated_def)
                     {
+                        $updated_def=mysqli_real_escape_string($db, $updated_def);
                         $sql="UPDATE glossary SET Definition='".$updated_def."' WHERE ID=".$ID;
                         db_query($db, $sql);
                     }

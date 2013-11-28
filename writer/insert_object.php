@@ -44,15 +44,15 @@
                 <h3> Dimensions </h3></br>
                 <table>
                 <tr>
-                <th>Weight:</th><th>Lenght:</th><th>Width:</th><th>Thickness:</th>
+                <th>Weight (g):</th><th>Length (mm):</th><th>Width (mm):</th><th>Thickness (mm):</th>
                 </tr>
                 <tr>
-                <td><input type="text" name="Weight"></td><td><input type="text" name="Lenght"></td><td><input type="text" name="Width"></td><td><input type="text" name="Thickness"></td>
+                <td><input type="text" name="Weight"></td><td><input type="text" name="Length"></td><td><input type="text" name="Width"></td><td><input type="text" name="Thickness"></td>
                 </tr>
                 </table>
                 <table>
                 <tr>
-                <th>Base diameter:</th><th>Max diameter:</th>
+                <th>Base diameter (mm):</th><th>Max diameter (mm):</th>
                 </tr>
                 <tr>
                 <td><input type="text" name="Base_diameter"></td><td><input type="text" name="Max_diameter"></td>

@@ -100,18 +100,24 @@ if(isset($fields_list['object']))
         $numrows=$linked_data['numrows'];
         
         //Writes the rows into the excel spreadsheet
-        if(isset($rows)) //If there is more than just information on the object
+        if(isset($rows)) //If the user is asking for more than just information on the object
         {
+            //Defines the number of rows to be merged
+            if(max($numrows)>0)
+            {
+                $max_rows=max($numrows);
+            }
+            else    $max_rows=1;
             $col='A'; //Column counter for the excel export
             foreach($display_fields['object'] as $field)
             {
                 $objPHPExcel->getActiveSheet()->setCellValue($col.$rowNumber, strip_tags($data[$field]));
-                $objPHPExcel->getActiveSheet()->mergeCells($col.$rowNumber.":".$col.($rowNumber+max($numrows)-1));
+                $objPHPExcel->getActiveSheet()->mergeCells($col.$rowNumber.":".$col.($rowNumber+$max_rows-1));
                 $col++;
             }
             $first_unmerged_column=$col;
             $i=0;
-            while($i<max($numrows))
+            while($i<$max_rows)
             {
                 $col=$first_unmerged_column;
                 foreach($display_fields as $class=>$array)

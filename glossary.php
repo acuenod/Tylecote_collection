@@ -25,7 +25,7 @@
             $result = db_query($db, $sql);
             while($data=db_fetch_assoc($result))
             {
-                echo"<tr><th>".$data['Term']."</th><td>".$data['Definition']."</td></tr>";
+                echo"<tr><th>".$data['Term']."</th><td>".nl2br($data['Definition'])."</td></tr>";
             }
             ?>
             </table>

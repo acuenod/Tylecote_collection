@@ -32,7 +32,7 @@
                 </br>
                 Collection: <input type="text" name="Collection"> </br>
                 </br>
-                Tylecote\'s notebook number: <input type="text" name="Tylecote_notebook"> </br>
+                Tylecote's notebook number: <input type="text" name="Tylecote_notebook"> </br>
                 </br>
                 Drawer: <input type="text" name="Drawer"> </br>
                 </br>
@@ -52,8 +52,7 @@
                 </br>
 
                 Further description and comments: </br>
-                <textarea name="Comment" rows="5" cols="45">
-                </textarea> </br>
+                <textarea name="Comment" rows="5" cols="45"></textarea> </br>
                 </br>
                 <input type="hidden" name="class" value="sample">
                 <?php

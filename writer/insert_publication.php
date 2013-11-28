@@ -29,8 +29,7 @@
                 </br>Pages: <input type="text" name="Page" /> </br>
                 </br>Find it in oxford?: <input type="text" name="Oxf_location" /> </br>
                 </br>Further description and comments: </br>
-                <textarea name="Comment" rows="5" cols="45">
-                </textarea> </br>
+                <textarea name="Comment" rows="5" cols="45"></textarea> </br>
                 </br>
                 Upload a pdf:
                 <input type="file" name="Pdf" /></br>

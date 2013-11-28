@@ -27,7 +27,7 @@
             
             $db=db_connect();
             
-            //Lenghten the timeout limit on the page to give it time to load all the tables
+            //Lengthen the timeout limit on the page to give it time to load all the tables
             set_time_limit(120);
             
             //Definition of the 3 classes of items we want to display

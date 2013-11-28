@@ -18,6 +18,8 @@
             and are archived in Ironbridge. The notebooks include many notes on the metallurgical
             samples catalogued in this website. Digitised copies of the relevant notebooks can be 
             viewed and downloaded by clicking on the links below.<br>
+            The archive also includes three typewritten indexes detailing the contents of the notebooks.
+            These can also be downloaded below.
             <br>
             NB: The pencil notes might be difficult to read on certain screens. If this is the case,
             dropping the brightness of the screen should make it better. 
@@ -27,20 +29,15 @@
             <br>
             
         <?php
-        //Open the notebooks folders and displays a clickable list of all the notebooks
-        if($handle = opendir(getcwd().'/notebooks/'))
+        $array=scandir(getcwd().'/notebooks/');
+        foreach($array as $filename)
         {
-            //Loop over the directory
-            while (false !== ($entry = readdir($handle)))
+            if ($filename!= "." && $filename!= "..")
             {
-                if ($entry != "." && $entry != "..")
-                {
-                    echo "- <a href=notebooks/".$entry.">".$entry."</a><br>";
-                }
+                echo "- <a href=notebooks/".$filename.">".$filename."</a><br>";
             }
-            
-            closedir($handle);
         }
+        
         ?>
         <br>
         </div>

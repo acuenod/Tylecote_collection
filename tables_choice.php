@@ -113,7 +113,7 @@ function validateForm()
             <tr><td><input type='checkbox' name='object[]' value='Site' />Site</td><td><input type='checkbox' name='object[]' value='Date_strati' />Date stratigraphy</td></tr>
             <tr><td><input type='checkbox' name='object[]' value='Date_typo' />Date typology</td><td><input type='checkbox' name='object[]' value='Museum' />Museum</td></tr>
             <tr><td><input type='checkbox' name='object[]' value='Identification' />Identification no.</td><td><input type='checkbox' name='object[]' value='Image' />Image</td></tr>
-            <tr><td><input type='checkbox' name='object[]' value='Weight' />Weight</td><td><input type='checkbox' name='object[]' value='Lenght' />Lenght</td></tr>
+            <tr><td><input type='checkbox' name='object[]' value='Weight' />Weight</td><td><input type='checkbox' name='object[]' value='Length' />Length</td></tr>
             <tr><td><input type='checkbox' name='object[]' value='Width' />Width</td><td><input type='checkbox' name='object[]' value='Thickness' />Thickness</td></tr>
             <tr><td><input type='checkbox' name='object[]' value='Base_diameter' />Base diameter</td><td><input type='checkbox' name='object[]' value='Max_diameter' />Max diameter</td></tr>
             </table>

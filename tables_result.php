@@ -6,6 +6,7 @@
 </head>
 
 <script src='/Tylecote_collection/functions/navigation.js'></script>
+<script src='/Tylecote_collection/functions/sorttable.js'></script>
 
 <body>
     <div id="content">
@@ -63,7 +64,7 @@
             if(isset($fields_list['object']))
             {
                 //Display the table headers using the global variable $field_title to translate between field name and explicite column header
-                echo"<table  overflow='scroll'>";
+                echo"<table  class='sortable' overflow='scroll'>";
                 echo"<tr>";
                 foreach($display_fields as $class=> $array)
                 {
@@ -91,20 +92,30 @@
                     }
                     
                     //Get the info related to this object in all of the other tables (sample, publication, metallography and chemistry) 
-                    $linked_data=get_linked_data($data['ID'], $display_fields, $fields_list);
-                    $rows=$linked_data['rows'];
-                    $numrows=$linked_data['numrows'];
+                    if(isset($display_fields['sample']) || isset($display_fields['publication']) || isset($display_fields['metallography']) || isset($display_fields['chemistry']))
+                    {
+                        $linked_data=get_linked_data($data['ID'], $display_fields, $fields_list);
+                        $rows=$linked_data['rows'];
+                        $numrows=$linked_data['numrows'];
+                    }
                     
                     //Display of the rows of the table
-                    if(isset($rows)) //If there is more than just information on the object
-                    {   
+                    if(isset($rows)) //If the user is asking for more than just information on the object
+                    {
+                        //Defines the number of rows to be merged
+                        if(max($numrows)>0)
+                        {
+                            $max_rows=max($numrows);
+                        }
+                        else    $max_rows=1;
+                        //Display the row with change of colour on hover and link to the item on click.
                         echo"<tr onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)'>";
                         foreach($display_fields['object'] as $field)
                         {
-                            echo"<td rowspan=".max($numrows)." onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data['ID']."&class=object&action=tables')>".$data[$field]."</td>";
+                            echo"<td rowspan=".$max_rows." onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data['ID']."&class=object&action=tables')>".$data[$field]."</td>";
                         }
                         $i=0;
-                        while($i<max($numrows))
+                        while($i<$max_rows)
                         {
                             if($i!=0)
                             {
@@ -131,9 +142,10 @@
                     }
                     else //If there is only information on the object (no need to add a rowspan)
                     {
+                        echo"<tr onmouseover='ChangeColor(this, true)' onmouseout='ChangeColor(this, false)'>";
                         foreach($display_fields['object'] as $field)
                         {
-                            echo"<td>".$data[$field]."</td>";
+                            echo"<td onclick=DoNav('/Tylecote_collection/detailed_view.php?id=".$data['ID']."&class=object&action=tables')>".$data[$field]."</td>";
                         }
                         echo"</tr>";
                     }
@@ -143,7 +155,7 @@
                 echo"<br>";
             }
             
-            //Submits the information form the fotables_choice.php form to the export page 
+            //Submits the information form the tables_choice.php form to the export page 
             //The export will redo all the work and write it in an excel rather than a html table
             echo"<form method='post' action='tables_export.php'>";
             foreach($_POST as $key=>$array)

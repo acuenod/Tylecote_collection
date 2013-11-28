@@ -14,7 +14,7 @@ function get_values($post, $files)
 {   
     include $_SERVER['DOCUMENT_ROOT']."/Tylecote_collection/globals.php";
     $db=db_connect();
-    global $Type, $Description, $Material, $Site, $County, $Country, $Date_strati, $Date_typo, $Site_period, $Site_layer, $Museum, $Museum_nb, $Field_nb, $Catalogue_nb, $Weight, $Lenght, $Width, $Thickness, $Base_diameter, $Max_diameter, $Photo, $Drawing, $Card_scan_front, $Card_scan_back, $Comment;
+    global $Type, $Description, $Material, $Site, $County, $Country, $Date_strati, $Date_typo, $Site_period, $Site_layer, $Museum, $Museum_nb, $Field_nb, $Catalogue_nb, $Weight, $Length, $Width, $Thickness, $Base_diameter, $Max_diameter, $Photo, $Drawing, $Card_scan_front, $Card_scan_back, $Comment;
     global $Sample_type, $Sample_nb, $Sample_material, $Sample_condition, $Date_sampled, $Object_part, $Section, $Collection, $Tylecote_notebook, $Drawer, $Date_repolished, $Location_new_drawer, $Location_new_code, $Photo, $Drawing, $Date_analysed, $Comment;
     global $Author, $Date, $Title, $Journal, $Volume, $Issue, $Pages, $Book_title, $Editor, $City, $Publisher, $Oxf_location, $Pdf, $Comment;
     global $ID_object, $ID_sample, $Object_part, $Technology, $Use_techno, $HV, $HB, $Report, $Date_metallo, $Analyst, $Comment;
@@ -24,7 +24,7 @@ function get_values($post, $files)
    
     if($post['class']=="object")
     {
-            $fields_list="Type, Description, Material, Site, County, Country, Date_strati, Date_typo, Site_period, Site_layer, Museum, Museum_nb, Field_nb, Catalogue_nb, Weight, Lenght, Width, Thickness, Base_diameter, Max_diameter, Photo, Drawing, Card_scan_front, Card_scan_back, Comment";
+            $fields_list="Type, Description, Material, Site, County, Country, Date_strati, Date_typo, Site_period, Site_layer, Museum, Museum_nb, Field_nb, Catalogue_nb, Weight, Length, Width, Thickness, Base_diameter, Max_diameter, Photo, Drawing, Card_scan_front, Card_scan_back, Comment";
     }
     elseif($post['class']=="sample")
     {

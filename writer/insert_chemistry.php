@@ -69,8 +69,7 @@
             
             <br>
             Further description and comments: </br>
-            <textarea name="Comment" rows="5" cols="45">
-            </textarea> </br>
+            <textarea name="Comment" rows="5" cols="45"></textarea></br>
             </br>
             <?php
                 $id=$_GET['id'];

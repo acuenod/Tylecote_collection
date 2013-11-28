@@ -4,9 +4,9 @@
     $micrograph_features=array();
     $micrograph_features['Cu_structure']=array('Twins', 'Slip lines', 'Dendritic structure', 'Coring', 'Alpha-delta eutectoid');
     $micrograph_features['Fe_structure']=array('Ferrite', 'Pearlite', 'Cementite', 'Martensite', 'Bainite', 'Troostite', 'Neumann bands', 'Weld', 'Widmanstatten', 'Piling');
-    $micrograph_features['Porosity']=array('High', 'Medium', 'Low');
-    $micrograph_features['Corrosion']=array('Intergranular', 'Transgranular', 'Interdendritic', 'Pitting', 'Cracks', 'Redeposited copper');
-    $micrograph_features['Inclusions']=array('Copper sulphide', 'Pb-rich', 'Fe-rich', 'Slag', 'Elongated');
+    $micrograph_features['Porosity']=array('Some porosity', 'High', 'Medium', 'Low');
+    $micrograph_features['Corrosion']=array('Intergranular', 'Transgranular', 'Interdendritic', 'Slip plane corrosion', 'Pitting', 'Cracks', 'Redeposited copper');
+    $micrograph_features['Inclusions']=array('Copper sulphide', 'Oxides', 'Pb-rich', 'Fe-rich', 'Slag', 'Elongated');
     $micrograph_features['C_content']=array('Homogeneous', 'Heterogeneous', 'Percentage');
     
     //Defines the title to display for each field in the table (used in dispay_details.php, display_table.php, modify.php
@@ -43,12 +43,12 @@
     $field_title['Museum_nb']="Museum number";
     $field_title['Field_nb']="Field number";
     $field_title['Catalogue_nb']="Catalogue number";
-    $field_title['Weight']="Weight";
-    $field_title['Lenght']="Lenght";
-    $field_title['Width']="Width";
-    $field_title['Thickness']="Thickness";
-    $field_title['Base_diameter']="Base diameter";
-    $field_title['Max_diameter']="Maximum diameter";
+    $field_title['Weight']="Weight (g)";
+    $field_title['Length']="Length (mm)";
+    $field_title['Width']="Width (mm)";
+    $field_title['Thickness']="Thickness (mm)";
+    $field_title['Base_diameter']="Base diameter (mm)";
+    $field_title['Max_diameter']="Maximum diameter (mm)";
     $field_title['Identification']="Identification no.";    // For the merged code fields in tables_results
     $field_title['Image']="Image";                          // For the merged image fields in tables_results
     //Metallography
