@@ -91,7 +91,7 @@
         //Definition of the clause for the SQL request that fetches the items to be displayed: only "not deleted" for objects and publication. Collection and drawer info for samples.
         $clause="Is_deleted=0";
         if (isset($_GET["collection"])) $clause=$clause." AND Collection='".$_GET["collection"]."'";
-        if (isset($_GET["drawer"])) $clause=$clause." AND Drawer='".$_GET["drawer"]."'";
+        if (isset($_GET["drawer"])) $clause=$clause." AND Drawer LIKE '".$_GET["drawer"]."%'";
 
         //Counts the number of items to be displayed in order to calculate the number of pages of results
         $sql="SELECT count(*) FROM ".$class." WHERE ".$clause;

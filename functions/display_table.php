@@ -1,14 +1,3 @@
- <!-- Alert to confirm the unlinking of items if "Unlink" button has been clicked in detailed_view.php -->
-<script language="JavaScript">
-    function confirm_unlink()
-    {
-        var answer = confirm ("Are you sure you want to unlink these items?")
-        if (answer)
-        return true;
-        else return false;
-    }
-</script>
-
 <?php
 
 /*function designed to display a clickable table of results from an sql request
@@ -21,6 +10,15 @@ arguments:
  * $action: string, "browse" "search" "link" or "thesaurus". "Browse" displays the results over several pages. Otherwise the table uses the sortable class to order the table by clicking on the column headers
  * $page: int. Indicates the number of the age of results that is displayed. Set to 0 if not on browse result
  * $search_text: string, optional. Passes the text of the search to the function
+ * 
+ * In link_items.php, search_results.php and display_linked in detailed_view.php, the table class is 'tablesorter'.
+ * This enable to alphabetically sort the table by clicking on one of the headers without reloading the page.
+ * It uses a jQuery plugin: jquery.tablesorter.
+ * 
+ * In browse_results.php the table class is "normal", but the headers are clickable to sort the table,
+ * this reloads the page and reruns the sql query using ORDER BY Field ASC or DSC in the SQL.
+ * This is so that the results can be sorted AND displayed over several pages
+ * 
  */
 include $_SERVER['DOCUMENT_ROOT']."/Tylecote_collection/globals.php";
 
@@ -28,14 +26,6 @@ function display_table($db, $sql, $fields_array, $class, $form, $checked, $actio
 {
         global $field_title;
         echo"<script src='/Tylecote_collection/functions/navigation.js'></script>";
-        if($action=="search" || $action=="thesaurus")
-        {
-            echo"<script src='/Tylecote_collection/functions/sorttable.js'></script>";
-            /* Not sure why, if I call this script, the navigation one doesn't work.
-             * This is why I don't call it for link
-             */
-        }
-       
         
 	$currentFile = $_SERVER["PHP_SELF"];
 	$parts = Explode('/', $currentFile);
@@ -83,17 +73,17 @@ function display_table($db, $sql, $fields_array, $class, $form, $checked, $actio
         //Displays the headers of the table differently depending on the action we come from
         if($action=="browse")
         {
-            echo"<table border=1 cellspacing=0 cellpadding=3 class='normal'>";
+            echo"<table class='normal'>";
         }
         elseif($action=="search" || $action=="link")
         {
-            echo"<table border=1 cellspacing=0 cellpadding=3 class='sortable'>";
+            echo"<table id='".$class."' class='tablesorter'>";
         }
         else
         {
-            echo"<table border=1 cellspacing=0 cellpadding=3 class='sortable' width=60%>";
+            echo"<table id='".$class."' class='tablesorter' width=60%>";
         }
-	echo "<tr>";
+	echo "<thead><tr>";
 	if($form=="check" || $form=="radio")
 	{
             echo"<th></th>";
@@ -111,7 +101,7 @@ function display_table($db, $sql, $fields_array, $class, $form, $checked, $actio
                 }
                 else
                 {   
-                    echo "<th onmouseover='ChangeColorHeader(this, true)' onmouseout='ChangeColorHeader(this, false)'>".$field_title[$field]."</th>";
+                    echo "<th>".$field_title[$field]."</th>";
                 }
             }
 	}
@@ -123,8 +113,8 @@ function display_table($db, $sql, $fields_array, $class, $form, $checked, $actio
         {
             echo"<th>Unlink</th>";
         }
-        echo"<tr>";
-        
+        echo"<tr></thead>";
+        echo"<tbody>";
         
         
         //Displays the rows of the table
@@ -251,6 +241,7 @@ function display_table($db, $sql, $fields_array, $class, $form, $checked, $actio
             echo"<tr><th><input type='radio' name='ID_".$class."' value='0'></th>
                 <td colspan=5>No known ".$class." relating to this micrograph</td></tr>";
         }
+        echo"</tbody>";
 	echo"</table>";
 }
 

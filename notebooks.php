@@ -16,10 +16,17 @@
             In 2008, the <a href="http://hist-met.org/">Historical Metallurgy Society</a>
             acquired the papers of Professor Tylecote. These are currently being catalogued by the HMS
             and are archived in Ironbridge. The notebooks include many notes on the metallurgical
-            samples catalogued in this website. Digitised copies of the relevant notebooks can be 
-            viewed and downloaded by clicking on the links below.<br>
+            samples catalogued in this website, alongside notes on sites Tylecote visited,
+            his smelting experiments and conferences he attended. Digitised copies of the relevant notebooks can be 
+            viewed and downloaded by clicking on the links below (files named Tyl_notebook_01 to 102).<br>
+            <br>
             The archive also includes three typewritten indexes detailing the contents of the notebooks.
-            These can also be downloaded below.
+            These can also be downloaded below (files named Tyl_index_103 to 105).<br>
+            <br>
+            Finally, Tylecote wrote a masterlist of the mounts in his collection. At the back of this handwritten
+            book, there is also an alphabetical index giving mount numbers for a list of sites and projects. 
+            This list is kept at the RLAHA in Oxford and a digital copy is available below
+            (file name Tyl_masterlist_and_index).<br>
             <br>
             NB: The pencil notes might be difficult to read on certain screens. If this is the case,
             dropping the brightness of the screen should make it better. 

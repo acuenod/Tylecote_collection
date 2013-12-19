@@ -47,7 +47,7 @@ function photo_upload($files, $class)
                                     imagejpeg($NouvelleImage , 'upload/'.$class.'/'.$key.'/'. basename($files[$key]['name']), 100);
                             }*/
                             imagedestroy($ImageChoisie);
-                            echo "Picture uploaded !<br>";
+                            echo "Picture uploaded!<br>";
                         }
                         else
                         {

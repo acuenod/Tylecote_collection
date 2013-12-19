@@ -51,6 +51,7 @@ function display_details($id, $class)
     $result = db_query($db, $sql);
     while($data = db_fetch_assoc($result))
     {
+        echo"<div id='details' style='clear:both'>";
         //Displays the illustrations
         echo"<div id='photo_display'>";
         //If the item viewed is a metallography, display the information for each micrograph
@@ -207,6 +208,7 @@ function display_details($id, $class)
             echo"</form>";
         }
         echo"<br><br>";
+        echo"</div>";
     }
     
     //Close connection to database

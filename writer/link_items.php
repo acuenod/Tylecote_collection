@@ -3,8 +3,18 @@
 <head>
 <title>Link items</title>
 <link rel="stylesheet" href="../mystyle.css">
+<script type="text/javascript" src="/Tylecote_collection/functions/jquery-1.10.2.js"></script> 
+<script type="text/javascript" src="/Tylecote_collection/functions/jquery.tablesorter.js"></script> 
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#object").tablesorter();
+        $("#sample").tablesorter();
+        $("#publication").tablesorter();
+    } 
+); 
+</script>
 </head>
-
 
 <body>
     <div id="content">
@@ -35,7 +45,7 @@
             
             //Definition of the fields to display for each class of item
             $fields_list=array();
-            $fileds_array=array();
+            $fields_array=array();
             $fields_list['object']="Type, Site, Date_strati, Museum_nb, Field_nb, Catalogue_nb, Photo, Drawing";
             $fields_list['sample']="Sample_type, Sample_nb, Sample_material, Photo";
             $fields_list['publication']="Author, Date, Title, Journal";

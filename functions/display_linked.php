@@ -45,9 +45,11 @@ function display_linked($id, $class, $form, $checked_publications, $checked_samp
 	
 	if($class=="sample")
 	{
+            echo"<div id='leftContent'>";
             echo"<h3>Related objects</h3>";
             $sql="SELECT ID, ".$fields_list['object']." FROM object INNER JOIN sample_object ON object.ID=sample_object.ID_object WHERE ID_sample=".$id." AND Is_deleted=0";
             display_table($db, $sql, $fields_array['object'], "object", "false", 0, "link", 0);
+            echo"</div>";
 	}
 	
         db_close($db);

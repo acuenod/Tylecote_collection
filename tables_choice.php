@@ -3,8 +3,6 @@
 <head>
 <title>Tables</title>
 <link rel="stylesheet" href="mystyle.css">
-</head>
-
 <script language="JavaScript">
 //The toggle function enables to check all the tickboxes that have the same name at once
 function toggle(source, name) {
@@ -46,6 +44,7 @@ function validateForm()
     }
 }
 </script>
+</head>
 
 <body>
     <div id="content">
@@ -63,6 +62,9 @@ function validateForm()
             <form method='post' action='tables_result.php'>
                 
             <h3>1) Search for items to display.</h3>
+            
+            Example: Knife IN Object type AND Iron IN Material<br>
+            <br>
             Search for:<br>
             <input type="text" name="search_text[]"> &nbsp; in &nbsp; <select name="search_field[]">
                                                                         <option value="All">All fields</option>

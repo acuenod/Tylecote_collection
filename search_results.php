@@ -3,6 +3,19 @@
 <head>
 <title>Search results</title>
 <link rel="stylesheet" href="mystyle.css">
+
+<script type="text/javascript" src="/Tylecote_collection/functions/jquery-1.10.2.js"></script> 
+<script type="text/javascript" src="/Tylecote_collection/functions/jquery.tablesorter.js"></script> 
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#object").tablesorter();
+        $("#sample").tablesorter();
+        $("#publication").tablesorter();
+        $("#micrograph").tablesorter();
+    } 
+); 
+</script>
 </head>
 
 
@@ -57,7 +70,7 @@
                 }
                 elseif ($class=="publication")
                 {
-                    $fields_list="Author, Date, Title, Publisher, City, Journal, Volume, Issue, Pages, Editor, Book_title, Oxf_location, Comment";
+                    $fields_list="Author, Date, Title, Journal, Book_title, Comment";
                 }
                 elseif ($class =="micrograph")
                 {

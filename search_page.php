@@ -1,14 +1,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Advanced Search</title>
+<title>Simple search</title>
 <link rel="stylesheet" href="mystyle.css">
-</head>
-
- <!-- If the the writer has forgotten to enter some text, an alert is displayed -->
 <script language="JavaScript">
-function validateForm()
+function validateSearch()
 {
+    //If the the writer has forgotten to enter some text, an alert is displayed
     var search_text=document.getElementById('search_text');
     if(search_text.value==null || search_text.value=="")
     {
@@ -17,6 +15,7 @@ function validateForm()
     }
 }
 </script>
+</head>
 
 <body>
     <div id="content">
@@ -32,7 +31,7 @@ function validateForm()
             
             <form method="post" action="<?php echo $path?>search_results.php" enctype="multipart/form-data" class="search">
                 Search: <input type="text" id="search_text" name="search_text"/>
-                <input type="submit" value="Go" onClick="return validateForm()"/>
+                <input type="submit" value="Go" onClick="return validateSearch()"/>
             </form>
             
         </div>

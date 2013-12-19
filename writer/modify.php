@@ -89,7 +89,7 @@
                     //Display of text areas
                     elseif($field=="Description" || $field=="Comment" || $field=="Report" || $field=="Technology")
                     {
-                        echo'<br>'.$field.': <textarea name="'.$field.'" rows="5" cols="45">'.$data[$field].'</textarea> <br />';
+                        echo'<br>'.$field.': <textarea name="'.$field.'" rows="5" cols="45">'.$data[$field].'</textarea><br />';
                     }
                     
                     //Display of check box

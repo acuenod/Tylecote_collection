@@ -100,6 +100,102 @@ body {
         box-shadow: 25px 0px 25px -10px black, -25px 0px 25px -10px black, inset 0 -18px 2px 0px grey;
 }
 
+#cssmenu{
+    float:left;
+}
+#cssmenu ul,
+#cssmenu li,
+#cssmenu span,
+#cssmenu a {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+#cssmenu:after,
+#cssmenu ul:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#cssmenu a {
+    display: inline-block;
+    padding: 8px 15px;
+    font-size:12px;
+    border-right: 1px solid #999999;
+    color: #F6F6F6;
+    height: 14px;
+    text-decoration: none;
+}
+#cssmenu ul {
+  list-style: none;
+}
+#cssmenu > ul {
+  float: left;
+}
+#cssmenu > ul > li {
+  float: left;
+}
+#cssmenu > ul > li > a {
+  color: #F6F6F6;
+  font-size: 12px;
+}
+#cssmenu > ul > li:hover:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+}
+
+#cssmenu > ul > li.active:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+}
+#cssmenu > ul > li.active > a {
+  background: #A8A8A8;
+}
+#cssmenu > ul > li:hover > a {
+  background: #A8A8A8;
+}
+#cssmenu .has-sub {
+  z-index: 1;
+}
+#cssmenu .has-sub:hover > ul {
+  display: block;
+}
+#cssmenu .has-sub ul {
+  display: none;
+  position: absolute;
+  width: 200px;
+  top: 100%;
+  left: 0;
+}
+#cssmenu .has-sub ul li {
+  *margin-bottom: -1px;
+}
+#cssmenu .has-sub ul li a {
+  background: grey;
+  border-bottom: 1px solid #999999;
+  filter: none;
+  font-size: 11px;
+  display: block;
+  line-height: 120%;
+  padding: 10px;
+  color: white;
+}
+#cssmenu .has-sub ul li:hover a {
+  background: #A8A8A8;
+}
+
+
 #search{
         float:right;
         font-size:12px;
@@ -138,50 +234,7 @@ hr {
         height: 1px;
   }
 
-ul.navbar {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        position: relative;
-        display: inline-table;
-    }
-ul.navbar:after {
-	content: ""; clear: both; display: block;
-    }
-ul.navbar li {
-        display:inline;
-        float:left;
-        font-size:12px;
-        border-right: 1px solid #999999;
-        color: #F6F6F6;
-        display: block;
-        height: 14px;
-        padding: 8px 15px;
-}
 
-ul.navbar ul {
-	display: none;
-        background: grey;
-	position: absolute; top: 100%;
-}
-ul.navbar ul li {
-        float: none; 
-	position: relative;
-}
-
-ul.navbar li:hover > ul {
-	display: block;
-	}
-  .navbar_normal {}
-  .navbar_highlighted {background: #A8A8A8  }
-  ul.navbar a {
-        text-decoration: none }
-  .navbar a:link {
-        color: white
-  }
-  .navbar a:visited {
-        color: white
-  }
 a:link {
         color: black }
 a:visited {
@@ -190,7 +243,7 @@ a:visited {
   table {
     border-collapse: collapse;
     table-layout:fixed;
-    border:1px solid grey;  
+    border:1px solid grey;
     font-family: Verdana,Arial,Helvetica,sans-serif;
     font-size:12px;
     word-wrap:break-word;
@@ -223,12 +276,24 @@ a:visited {
     border: none;
     table-layout: auto;
 }
-  th {
+.tablesorter{
+    table-layout: auto;
+}
+table.tablesorter thead tr .header {
+    background-image: url(images/bg.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+    padding-right: 20px;
+}
+
+th {
     font-weight:normal;
     color: white;
     text-align: left;
     background-color: #011e4a;
     border:1px solid grey;
+    padding: 3px;
   }
   th a:link{ 
     color: white;
@@ -236,14 +301,15 @@ a:visited {
   th a:visited{ 
     color: white;
    }
-  .normal th { 
+  .normalth { 
     color: white;
     background-color: #011e4a;
    }
-  .normalActive th { 
+  .normalActiveth { 
     color: white;
     background-color: grey;
     color: white;
+    cursor: pointer;
   }
   .form th {
     font-weight:normal;
@@ -269,8 +335,10 @@ a:visited {
     font-weight: bold;
     background-color: white;
 }
-  td {
+
+td {
     border:1px solid grey;
+    padding: 3px;
   }
   .form td {
     font-family: Arial, Sans-serif;
@@ -287,6 +355,12 @@ a:visited {
     border: none;
     color: #444444; 
 }
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(images/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(images/desc.gif);
+}
   form {
     color: black;
     font-family: Arial, Sans-serif;
@@ -300,12 +374,24 @@ a:visited {
       margin:0 auto 0;
       
   }
+  
+#boxedText{
+    font-size: 14px;
+    padding: 20px;
+    border: 2px solid grey;
+  }
+  #justifiedText{
+    text-align: justify;
+    padding:10px;  
+  }
+  #montage{
+      padding: 20px;
+  }
 #photo_display {
     float:right;
     width:35%;
     padding-left: 1.7em;
     border-left: 2px solid #011e4a;
-    
 	}
 #micrograph_display {
     float:right;
@@ -316,7 +402,6 @@ a:visited {
     padding-left: 1.7em;
     padding-bottom: 0.5em;
     border-left: 2px solid #0000CD;
-    
 	}
         
 #thumbnail_display{
@@ -332,6 +417,16 @@ a:visited {
 #wide_table {
 	width:100%;
         overflow:scroll;
+  }
+  
+#rightFloat{
+        float:right;
+        margin:2px 20px;
+  }
+  
+#leftFloat{
+        float:left;
+        margin:2px 20px;
   }
 #right {
 	float:right;
@@ -353,8 +448,7 @@ a:visited {
         
 #leftContent {
         float:left;
-	width:55%;
-        padding: 15px;
+	width:62%;
         margin-top: 1.7em;
         padding-top: 0em;
 	}
@@ -363,6 +457,10 @@ a:visited {
         width:350px;
         margin:0 auto 0;
 	}
+        
+#details{
+        padding-top: 15px;
+        }
         
 #db_entered_info{
          font-style: italic;
@@ -477,3 +575,4 @@ body:before {
     float: right;
     font-size: 12px;
 }
+

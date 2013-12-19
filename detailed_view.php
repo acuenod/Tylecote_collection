@@ -3,6 +3,27 @@
 <head>
 <title>Detailed view</title>
 <link rel="stylesheet" href="mystyle.css">
+<script type="text/javascript">
+//Alert to confirm the unlinking of items if "Unlink" button has been clicked in detailed_view.php
+function confirm_unlink()
+{
+    var answer = confirm ("Are you sure you want to unlink these items?")
+    if (answer)
+    return true;
+    else return false;
+}
+</script>
+<script type="text/javascript" src="/Tylecote_collection/functions/jquery-1.10.2.js"></script> 
+<script type="text/javascript" src="/Tylecote_collection/functions/jquery.tablesorter.js"></script> 
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#object").tablesorter();
+        $("#sample").tablesorter();
+        $("#publication").tablesorter();
+    } 
+); 
+</script>
 </head>
 
 
@@ -241,6 +262,7 @@
             
             //Displays the Add, Modify and Delete buttons if the user is at least a writer (access>1)
             echo '<br><br>';
+            echo"<div id=leftContent>";
             if(isset($_SESSION['access']) && $_SESSION['access']>1)
             {
                 echo "<input type='button' name='goto_modify' value='Modify this item' onclick='self.location.href=\"writer/modify.php?id=".$id."&class=".$class."\"'><br><br>";
@@ -260,6 +282,7 @@
                         echo "<input type='button' name='add_object' value='Add related object' onclick='self.location.href=\"writer/insert_object.php?id_sample=".$id."\"'><br><br>";
                 }
             }
+            echo"</div>";
             
             ?>
 

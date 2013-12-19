@@ -25,8 +25,11 @@
             elseif($_GET['class']=="sample" && !isset($_GET['collection']))
             {
                 echo"<h1>Browse samples</h1>";
+                echo"Choose which collection you would like to browse.<br><br>";
                 echo"<input type='button' name='goto_browse_coghlan' value='Coghlan' onclick='self.location.href=\"browse_choice.php?class=sample&collection=Coghlan\"'>
-                <input type='button' name='goto_browse_tylecote' value='Tylecote' onclick='self.location.href=\"browse_choice.php?class=sample&collection=Tylecote\"'>";
+                <input type='button' name='goto_browse_tylecote' value='Tylecote' onclick='self.location.href=\"browse_choice.php?class=sample&collection=Tylecote\"'>
+                <input type='button' name='goto_browse_morton' value='Morton' onclick='self.location.href=\"browse_choice.php?class=sample&collection=Morton\"'>
+                <input type='button' name='goto_browse_gilmour' value='Gilmour' onclick='self.location.href=\"browse_choice.php?class=sample&collection=Gilmour\"'>";
             }
             // Third level of choice for samples: Which drawer
             elseif($_GET['class']=="sample" && isset($_GET['collection']) && $_GET['collection']!='')
@@ -66,6 +69,10 @@
                          <input type='button' name='goto_browse_tylecote' value='Drawer 476-512' onclick='self.location.href=\"browse.php?class=sample&collection=Tylecote&drawer=476-512\"'><br><br>
                          <input type='button' name='goto_browse_tylecote' value='Drawer 513-522' onclick='self.location.href=\"browse.php?class=sample&collection=Tylecote&drawer=513-522\"'><br><br>
                          ";
+                }
+                if($_GET['collection']=="Morton")
+                {                        
+                    echo"<input type='button' name='goto_browse_morton' value='Drawer 10' onclick='self.location.href=\"browse.php?class=sample&collection=Morton&drawer=10\"'><br><br>";
                 }
             }
             ?>

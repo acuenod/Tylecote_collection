@@ -1,5 +1,5 @@
 function ChangeColor(tableRow, highLight)
-    {
+{
     if (highLight)
     {
       tableRow.className='normalActive';
@@ -8,9 +8,9 @@ function ChangeColor(tableRow, highLight)
     {
       tableRow.className='normal';
     }
-    }
+}
 function ChangeColorHeader(cell, highLight)
-    {
+{
     if (highLight)
     {
       cell.className='normalActiveth';
@@ -19,10 +19,10 @@ function ChangeColorHeader(cell, highLight)
     {
       cell.className='normalth';
     }
-    }
-  function DoNav(theUrl)
-  {
-	document.location.href = theUrl;
-  }
+}
+function DoNav(theUrl)
+{
+    document.location.href = theUrl;
+}
 
 

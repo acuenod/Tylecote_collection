@@ -3,10 +3,10 @@
 <head>
 <title>Tables</title>
 <link rel="stylesheet" href="mystyle.css">
+<script src='/Tylecote_collection/functions/navigation.js'></script>
 </head>
 
-<script src='/Tylecote_collection/functions/navigation.js'></script>
-<script src='/Tylecote_collection/functions/sorttable.js'></script>
+
 
 <body>
     <div id="content">
@@ -64,8 +64,8 @@
             if(isset($fields_list['object']))
             {
                 //Display the table headers using the global variable $field_title to translate between field name and explicite column header
-                echo"<table  class='sortable' overflow='scroll'>";
-                echo"<tr>";
+                echo"<table id='mytable' class='normal' overflow='scroll'>";
+                echo"<thead><tr>";
                 foreach($display_fields as $class=> $array)
                 {
                     foreach($array as $field)
@@ -73,7 +73,8 @@
                         echo"<th>".$field_title[$field]."</th>";
                     }
                 }
-                echo"</tr>";
+                echo"</tr></thead>";
+                echo"<tbody>";
                 
                 //Finds all the results in the object table. For each found result finds the samples, publications, metallo and chemistry linked to this object
                 $sql="SELECT DISTINCT ".$fields_list['object']." FROM ".$table." WHERE object.Is_deleted=0 AND (".$clause.")";
@@ -150,7 +151,7 @@
                         echo"</tr>";
                     }
                 }
-                echo"</table>";
+                echo"</tbody></table>";
                 echo"</div>";
                 echo"<br>";
             }

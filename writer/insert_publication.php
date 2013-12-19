@@ -16,6 +16,7 @@
             <h2>Publication details</h2>
 
             <form method="post" action="add.php" enctype="multipart/form-data" class="form">
+                <div id="grey_text">Please enter the author list in the following format: Tylecote, R.F. and Gilmour, B.J.J.</div>
                 Author: <input type="text" name="Author" size="50"/> </br>
                 </br>Date: <input type="text" name="Date" /> </br>
                 </br>Title: <input type="text" name="Title" size="50"/> </br>
